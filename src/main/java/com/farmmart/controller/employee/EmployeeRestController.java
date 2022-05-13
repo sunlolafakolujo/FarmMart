@@ -1,4 +1,4 @@
-package com.farmmart.controller.employeerestcontroller;
+package com.farmmart.controller.employee;
 
 import com.farmmart.data.model.appuser.AppUser;
 import com.farmmart.data.model.appuser.AppUserNotFoundException;
@@ -18,6 +18,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,6 +50,8 @@ public class EmployeeRestController {
         userRoles.add(userRole);
 
         newEmployee.getAppUser().setUserRoles(userRoles);
+
+        newEmployee.setAge(Period.between(newEmployee.getDob(), LocalDate.now()).getYears());
 
         Employee employee=modelMapper.map(newEmployee,Employee.class);
 
@@ -174,6 +178,7 @@ public class EmployeeRestController {
         employeeDto.setLastName(employee.getLastName());
         employeeDto.setOtherNames(employee.getOtherNames());
         employeeDto.setDob(employee.getDob());
+        employeeDto.setAge(employee.getAge());
         employeeDto.setGender(employee.getGender());
         employeeDto.setNextOfKin(employee.getNextOfKin());
         employeeDto.setRelationshipWithNextOfKin(employee.getRelationshipWithNextOfKin());
