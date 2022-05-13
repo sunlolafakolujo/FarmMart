@@ -1,4 +1,4 @@
-package com.farmmart.controller.colourrestcontroller;
+package com.farmmart.controller.colour;
 
 import com.farmmart.data.model.colour.*;
 import com.farmmart.service.colour.ColourServiceImpl;
