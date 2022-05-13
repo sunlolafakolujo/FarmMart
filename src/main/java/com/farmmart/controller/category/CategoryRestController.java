@@ -1,4 +1,4 @@
-package com.farmmart.controller.categoryrestcontroller;
+package com.farmmart.controller.category;
 
 import com.farmmart.data.model.category.*;
 import com.farmmart.service.category.CategoryServiceImp;
