@@ -1,4 +1,4 @@
-package com.farmmart.controller.ordercontroller;
+package com.farmmart.controller.order;
 
 import com.farmmart.data.model.appuser.AppUser;
 import com.farmmart.data.model.appuser.AppUserNotFoundException;
