@@ -1,4 +1,4 @@
-package com.farmmart.controller.customerrestcontroller;
+package com.farmmart.controller.customer;
 
 import com.farmmart.data.model.appuser.AppUser;
 import com.farmmart.data.model.appuser.AppUserNotFoundException;
@@ -36,7 +36,7 @@ public class CustomerRestController {
 
     private final ModelMapper modelMapper;
 
-    @PostMapping("/registerCustomer")
+    @PostMapping("/customerRegistration")
     public ResponseEntity<NewCustomer> registerCustomer(@Valid @RequestBody NewCustomer newCustomer)
                                                         throws UserRoleNotFoundException {
 
