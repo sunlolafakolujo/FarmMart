@@ -23,6 +23,6 @@ public class Colour extends BaseAudit {
 
     @ToString.Exclude
     @JsonIgnore
-    @ManyToMany(mappedBy = "colours",cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "colours",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Collection<Product> products;
 }

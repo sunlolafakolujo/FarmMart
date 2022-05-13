@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 //import java.time.Period;
 
@@ -32,8 +33,11 @@ public class Employee extends BaseAudit {
     @Enumerated(EnumType.STRING)
     private Status employeeStatus;
 
-    @JsonFormat
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dob;
+
+    @Positive
+    private Integer age;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
@@ -43,7 +47,7 @@ public class Employee extends BaseAudit {
     @Enumerated(EnumType.STRING)
     private RelationshipWithNextOfKin relationshipWithNextOfKin;
 
-    @JsonFormat
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate hiredDate;
 
     //private LocalDate retirementDate; //TODO use function to calculate
@@ -66,6 +70,5 @@ public class Employee extends BaseAudit {
 //
 //        return "";
 //    }
-
 
 }

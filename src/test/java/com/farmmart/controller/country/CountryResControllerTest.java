@@ -1,4 +1,4 @@
-package com.farmmart.controller.countryrestcontroller;
+package com.farmmart.controller.country;
 
 import com.farmmart.data.model.country.Country;
 import com.farmmart.data.model.country.CountryNotFoundException;

@@ -1,4 +1,4 @@
-package com.farmmart.controller.userrolerestcontrol;
+package com.farmmart.controller.userrole;
 
 import com.farmmart.data.model.userrole.*;
 import com.farmmart.service.userrole.UserRoleServiceImpl;

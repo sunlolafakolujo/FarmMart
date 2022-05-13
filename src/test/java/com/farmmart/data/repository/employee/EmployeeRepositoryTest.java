@@ -6,14 +6,20 @@ import com.farmmart.data.model.employee.Employee;
 import com.farmmart.data.model.employee.EmployeeNotFoundException;
 import com.farmmart.data.model.localgovernment.LocalGovernment;
 import com.farmmart.data.model.staticdata.Gender;
+import com.farmmart.data.model.staticdata.RelationshipWithNextOfKin;
+import com.farmmart.data.model.staticdata.Status;
+import com.farmmart.data.model.staticdata.UserType;
+import com.farmmart.data.model.userrole.UserRole;
 import com.farmmart.data.repository.address.AddressRepository;
 import com.farmmart.data.repository.appuser.AppUserRepository;
 import com.farmmart.data.repository.localgovernment.LocalGovernmentRepository;
+import com.farmmart.data.repository.userrole.UserRoleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,9 +46,17 @@ class EmployeeRepositoryTest {
     @Autowired
     private AddressRepository addressRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserRoleRepository userRoleRepository;
+
     Employee employee;
 
     AppUser appUser;
+
+    UserRole userRole;
 
     LocalGovernment localGovernment;
 
@@ -52,6 +66,7 @@ class EmployeeRepositoryTest {
     void setUp() {
         employee=new Employee();
         appUser=new AppUser();
+        userRole=new UserRole();
         localGovernment=new LocalGovernment();
         address=new Address();
     }
@@ -67,21 +82,29 @@ class EmployeeRepositoryTest {
         address.setPostZipCode("111001");
         address.setLandMark("Crystal Palace Estate");
 
-        Set<Address> addresses=new HashSet<>();
+        List<Address> addresses=new ArrayList<>();
         addresses.add(address);
+
+        userRole=userRoleRepository.findByRoleName("ROLE_EMPLOYEE");
+        List<UserRole> userRoles=new ArrayList<>();
+        userRoles.add(userRole);
 
         appUser.setAddresses(addresses);
         appUser.setUsername("SunFak");
-        appUser.setPassword("1234");
+        appUser.setPassword(passwordEncoder.encode("1234"));
+        appUser.setUserType(UserType.EMPLOYEE);
         appUser.setPhone("08097545671");
+        appUser.setUserRoles(userRoles);
         appUser.setEmail("fakolujos@yahoo.com");
 
         employee.setDob(LocalDate.parse("2001-04-12"));
         employee.setAppUser(appUser);
+        employee.setEmployeeStatus(Status.STAFF);
         employee.setGender(Gender.MALE);
         employee.setFirstName("Sunlola");
         employee.setLastName("Fakolujo");
         employee.setNextOfKin("Abosede Fakolujo");
+        employee.setRelationshipWithNextOfKin(RelationshipWithNextOfKin.SPOUSE);
         employee.setOtherNames("Emmanuel");
         employee.setHiredDate(LocalDate.parse("2005-10-10"));
 

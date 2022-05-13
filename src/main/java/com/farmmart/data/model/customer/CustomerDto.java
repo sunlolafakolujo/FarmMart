@@ -1,12 +1,14 @@
 package com.farmmart.data.model.customer;
 
-import com.farmmart.data.model.appuser.AppUser;
+import com.farmmart.data.model.address.Address;
 import com.farmmart.data.model.staticdata.AgeRange;
 import com.farmmart.data.model.staticdata.Gender;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -24,5 +26,7 @@ public class CustomerDto {
 
     private AgeRange ageRange;
 
-    private AppUser appUser;
+    private String phone;
+
+    private List<Address> addresses;
 }

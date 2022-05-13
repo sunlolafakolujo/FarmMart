@@ -1,7 +1,6 @@
 package com.farmmart.data.model.address;
 
 
-import com.farmmart.data.model.localgovernment.LocalGovernment;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,5 +21,9 @@ public class AddressDto {
 
     private String postZipCode;
 
-    private LocalGovernment localGovernment;
+    private String localGovernmentName;
+
+    private String stateName;
+
+    private String countryName;
 }

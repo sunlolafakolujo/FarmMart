@@ -22,6 +22,8 @@ public class NewEmployee {
 
     private LocalDate dob;
 
+    private Integer age;
+
     private Gender gender;
 
     private String nextOfKin;

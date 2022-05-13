@@ -1,4 +1,4 @@
-package com.farmmart.controller.localgovernmentrestcontroller;
+package com.farmmart.controller.localgovernment;
 
 import com.farmmart.data.model.localgovernment.LocalGovernment;
 import com.farmmart.data.model.localgovernment.LocalGovernmentNotFoundException;

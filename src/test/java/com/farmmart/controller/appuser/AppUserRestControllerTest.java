@@ -1,4 +1,4 @@
-package com.farmmart.controller.appuserrestcontroller;
+package com.farmmart.controller.appuser;
 
 import com.farmmart.data.model.address.Address;
 import com.farmmart.data.model.appuser.AppUser;

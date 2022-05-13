@@ -6,7 +6,6 @@ import com.farmmart.data.model.localgovernment.LocalGovernment;
 import com.farmmart.data.model.staticdata.BusinessEntity;
 import com.farmmart.data.model.staticdata.Facility;
 import com.farmmart.data.model.staticdata.MeansOfIdentification;
-import com.farmmart.data.model.staticdata.Status;
 import com.farmmart.data.model.vendor.Vendor;
 import com.farmmart.data.model.vendor.VendorNotFoundException;
 import com.farmmart.data.repository.address.AddressRepository;
@@ -22,9 +21,12 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 @Slf4j
 @Transactional
@@ -70,7 +72,7 @@ class VendorRepositoryTest {
         address.setLandMark("Abule Ado Bus Stop");
         address.setPostZipCode("111001");
         address.setLocalGovernment(localGovernment);
-        Set<Address> addresses=new HashSet<>();
+        List<Address> addresses=new ArrayList<>();
         addresses.add(address);
 
         appUser.setUsername("Dapafol");

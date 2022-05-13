@@ -1,4 +1,4 @@
-package com.farmmart.controller.productrestcontroller;
+package com.farmmart.controller.product;
 
 import com.farmmart.data.model.category.Category;
 import com.farmmart.data.model.category.CategoryNotFoundException;
@@ -29,8 +29,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -89,7 +89,7 @@ class ProductRestControllerTest {
         category=categoryServiceImp.findCategoryById(11L);
 
         colour=colourService.findColourById(1L);
-        List<Colour> colours=new ArrayList<>();
+        Set<Colour> colours=new HashSet<>();
         colours.add(colour);
 
         product.setVendor(vendor);
@@ -204,8 +204,8 @@ class ProductRestControllerTest {
     @Test
     void testThatWhenYouCallGetProductPriceLessThanOrEqualsToMethod_thenProductIsReturned() throws Exception {
 
-        this.mockMvc.perform(get("/api/product/findProductByPriceLessThan/6000")
-                .header(HttpHeaders.AUTHORIZATION, "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJIZXBoemliYWhQYW0iLCJyb2xlcyI6WyJST0xFX0FETUlOIiwiUk9MRV9FTVBMT1lFRSJdLCJpc3MiOiIvYXBpL2xvZ2luIiwiZXhwIjoxNjQ2NjQ2NjQ4fQ.dq7byDhEDGue2Ve5u19XWqOLJFTFZnjokgIOFIBHVXE")
+        this.mockMvc.perform(get("/api/product/findProductByPriceLessThanOrEqualsTo/6000")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJIZXBoemliYWhQYW0iLCJyb2xlcyI6WyJST0xFX0FETUlOIiwiUk9MRV9FTVBMT1lFRSJdLCJpc3MiOiIvYXBpL2xvZ2luIiwiZXhwIjoxNjUyNDMzMDAxfQ.MD0gVvQ5I5qiU1itYj9ig3VPjbyInrmhdiLedpN6h6Q")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -217,27 +217,27 @@ class ProductRestControllerTest {
     @Test
     void testThatWhenYouCallGetProductPriceGreaterThanOrEqualsToMethod_thenProductIsOrAreReturned() throws Exception {
 
-        this.mockMvc.perform(get("/api/product/findProductByPriceGreaterThan/7000")
-                .header(HttpHeaders.AUTHORIZATION, "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJaZXJvV2FzdGUiLCJyb2xlcyI6WyJST0xFX1ZFTkRPUiJdLCJpc3MiOiIvYXBpL2xvZ2luIiwiZXhwIjoxNjQ2NjQxODQ5fQ.a8on4TRUe4hMqwGw6KtX3CxLOo4_rr88mNDVoItiRqo")
+        this.mockMvc.perform(get("/api/product/findProductByPriceGreaterThanOrEqualsTo/6000")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJIZXBoemliYWhQYW0iLCJyb2xlcyI6WyJST0xFX0FETUlOIiwiUk9MRV9FTVBMT1lFRSJdLCJpc3MiOiIvYXBpL2xvZ2luIiwiZXhwIjoxNjUyNDMzNzU1fQ.s4c8Ap8LBH_ZUH4mEHDi0ijhG1K9rIjvfNiYfxrcfHs")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.*", hasSize(1)))
-//                .andExpect(jsonPath("$[3].price", is(15000)))
+                .andExpect(jsonPath("$.*", hasSize(2)))
+                .andExpect(jsonPath("$[1].price").value(15000.00))
                 .andReturn();
     }
 
     @Test
     void testThatWhenYouCallGetProductByPriceRangeMethod_thenProductIsOrAreReturned() throws Exception {
 
-        this.mockMvc.perform(get("/api/product/findProductByPriceRange/5500,16500")
-                .header(HttpHeaders.AUTHORIZATION, "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJIZXBoemliYWhQYW0iLCJyb2xlcyI6WyJST0xFX0FETUlOIiwiUk9MRV9FTVBMT1lFRSJdLCJpc3MiOiIvYXBpL2xvZ2luIiwiZXhwIjoxNjQ2NjUzNTg3fQ.9pWS8iBnF2kTI2QTDz2MXMec2btk2syhJOznKv_H09A")
+        this.mockMvc.perform(get("/api/product/findProductByPriceRange/5000, 6500")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJIZXBoemliYWhQYW0iLCJyb2xlcyI6WyJST0xFX0FETUlOIiwiUk9MRV9FTVBMT1lFRSJdLCJpc3MiOiIvYXBpL2xvZ2luIiwiZXhwIjoxNjUyMzk1MjQxfQ.xf7BY8m6UrsEz3HXsnzK9Lns8tmaniyUzbOyvW51UNQ")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", notNullValue()))
-                .andExpect(jsonPath("$.*", hasSize(2)))
-                .andExpect(jsonPath("$[2].price", is(6000)))
+                .andExpect(jsonPath("$.*", hasSize(3)))
+                .andExpect(jsonPath("$[2].price", is(6000.0)))
                 .andReturn();
     }
 

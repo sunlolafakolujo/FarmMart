@@ -2,12 +2,13 @@ package com.farmmart.data.model.order;
 
 import com.farmmart.data.model.appuser.AppUser;
 import com.farmmart.data.model.orderitem.OrderItem;
+import com.farmmart.data.model.staticdata.Status;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,51 +18,56 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Order {
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "orderItems")
+public class CustomerOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @CreationTimestamp
-    private LocalDateTime orderDate;
+//    private String sessionId;
 
-    private BigDecimal vatAmount;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate orderDate;
 
-    private BigDecimal amountTotal;
+//    private BigDecimal vatAmount;
+
+    private Status status;
 
     @OneToOne
     private AppUser appUser;
 
-    @OneToMany(mappedBy = "order",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customerOrder",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<OrderItem> orderItems=new ArrayList<>();
 
-    @Transient
-    public BigDecimal getSubTotalAmount(){
-        BigDecimal total=BigDecimal.ZERO;
+    private BigDecimal totalAmount;
 
-        List<OrderItem> orderItemList= orderItems;
-
-        for (OrderItem o:orderItemList){
-            total=total.multiply(o.getTotalPrice());
-        }
-
-        return total;
-    }
-
-    @Transient
-    public BigDecimal totalVatAmount(){
-
-        return BigDecimal.valueOf(0.075).multiply(getSubTotalAmount());
-    }
-
-    @Transient
-    public BigDecimal getTotalAmount(){
-        return getSubTotalAmount().add(totalVatAmount());
-    }
-
-    @Transient
-    public Integer getNumberOfProductPurchased(){
-
-        return this.getOrderItems().size();
-    }
+//    @Transient
+//    public BigDecimal getSubTotalAmount(){
+//        BigDecimal total=BigDecimal.ZERO;
+//
+//        List<OrderItem> orderItemList= orderItems;
+//
+//        for (OrderItem o:orderItemList){
+//            total=total.multiply(o.getTotalPrice());
+//        }
+//
+//        return total;
+//    }
+//
+//    @Transient
+//    public BigDecimal totalVatAmount(){
+//
+//        return BigDecimal.valueOf(0.075).multiply(getSubTotalAmount());
+//    }
+//
+//    @Transient
+//    public BigDecimal getTotalAmount(){
+//        return getSubTotalAmount().add(totalVatAmount());
+//    }
+//
+//    @Transient
+//    public Integer getNumberOfProductPurchased(){
+//
+//        return this.getOrderItems().size();
+//    }
 }

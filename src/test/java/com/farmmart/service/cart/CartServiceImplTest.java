@@ -69,21 +69,21 @@ class CartServiceImplTest {
         Mockito.verify(cartRepository, Mockito.times(1)).findById(id);
     }
 
-    @Test
-    void testThatYouCanListCartItemsMethod() {
-        String username="BukolaFako";
-
-        appUser=appUserRepository.findByUserName(username);
-
-        List<Cart> carts=new ArrayList<>();
-
-        Mockito.when(cartRepository.findCartByAppUser(appUser)).thenReturn(carts);
-
-        cartService.listCartItems(appUser);
-
-        Mockito.verify(cartRepository, times(1)).findCartByAppUser(appUser);
-
-    }
+//    @Test
+//    void testThatYouCanListCartItemsMethod() {
+//        String username="BukolaFako";
+//
+//        appUser=appUserRepository.findByUserName(username);
+//
+//        List<Cart> carts=new ArrayList<>();
+//
+//        Mockito.when(cartRepository.findCartByAppUser(appUser)).thenReturn(carts);
+//
+//        cartService.listCartItems(appUser);
+//
+//        Mockito.verify(cartRepository, times(1)).findCartByAppUser(appUser);
+//
+//    }
 
     @Test
     void testThatYouCanMockUpdateCartMethod() throws CartNotFoundException {

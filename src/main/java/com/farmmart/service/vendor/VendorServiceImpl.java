@@ -5,6 +5,7 @@ import com.farmmart.data.model.staticdata.BusinessEntity;
 import com.farmmart.data.model.vendor.Vendor;
 import com.farmmart.data.model.vendor.VendorNotFoundException;
 import com.farmmart.data.repository.appuser.AppUserRepository;
+import com.farmmart.data.repository.userrole.UserRoleRepository;
 import com.farmmart.data.repository.vendor.VendorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,9 @@ public class VendorServiceImpl implements VendorService{
     @Autowired
     private AppUserRepository appUserRepository;
 
+    @Autowired
+    private UserRoleRepository userRoleRepository;
+
     @Override
     public Vendor saveVendor(Vendor vendor) throws VendorNotFoundException {
 
@@ -30,7 +34,7 @@ public class VendorServiceImpl implements VendorService{
 
         Vendor rcNumber=vendorRepository.findByRcNumber(vendor.getRcNumber());
 
-        if (Objects.nonNull(name) || Objects.nonNull(rcNumber)){
+        if (name!=null || rcNumber!=null){
             throw new VendorNotFoundException("Vendor already exist");
         }
 

@@ -1,4 +1,4 @@
-package com.farmmart.controller.addressrestcontroller;
+package com.farmmart.controller.address;
 
 import com.farmmart.data.model.address.Address;
 import com.farmmart.data.model.address.AddressNotFoundException;

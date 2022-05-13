@@ -2,13 +2,16 @@ package com.farmmart.data.model.appuser;
 
 import com.farmmart.data.model.address.Address;
 import com.farmmart.data.model.baseaudit.BaseAudit;
+import com.farmmart.data.model.customer.Customer;
 import com.farmmart.data.model.staticdata.UserType;
 import com.farmmart.data.model.userrole.UserRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.util.Collection;
+import java.util.List;
 
 @Getter
 @Setter
@@ -38,9 +41,14 @@ public class AppUser extends BaseAudit {
     @Email(message = "Email is already taken")
     private String email;
 
+    @JsonIgnore
+    @ToString.Exclude
+    @OneToOne(mappedBy = "appUser",fetch = FetchType.EAGER)
+    private Customer customer;
+
     @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.MERGE,CascadeType.DETACH,
             CascadeType.PERSIST,CascadeType.REFRESH})
-    private Collection<Address> addresses;
+    private List<Address> addresses;
 
     @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
     private Collection<UserRole> userRoles;

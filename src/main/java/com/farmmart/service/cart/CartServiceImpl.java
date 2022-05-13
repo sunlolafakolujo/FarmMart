@@ -39,31 +39,34 @@ public class CartServiceImpl implements CartService{
             return cart;
         }
 
-        @Override
-        public CartDto listCartItems(AppUser appUser) {
+    @Override
+    public CartDto listCartItems(AppUser appUser, String username) {
 
-            AppUser appUsername=appUserRepository.findByUserName(appUser.getUsername());
+        AppUser appUsername=appUserRepository.findByUserName(username);
 
-            List<Cart> carts=cartRepository.findCartByAppUser(appUser);
+        List<Cart> carts=cartRepository.findCartByAppUser(appUsername);
 
-            List<CartItemDto> cartItemDtos= new ArrayList<>();
+        List<CartItemDto> cartItemDtos= new ArrayList<>();
 
-            for (Cart cart:carts){
+        for (Cart cart:carts){
 
-                CartItemDto cartItemDto = getDtoFromCart(cart);
+            CartItemDto cartItemDto = getDtoFromCart(cart);
 
-                cartItemDtos.add(cartItemDto);
-            }
-
-            BigDecimal totalCost = BigDecimal.ZERO;
-
-            for (CartItemDto cartItemDto :cartItemDtos){
-
-                totalCost =totalCost.add(cartItemDto.getProduct().getPrice().multiply(new BigDecimal( cartItemDto.getOrderQuantity())));
-            }
-
-            return new CartDto(cartItemDtos,totalCost);
+            cartItemDtos.add(cartItemDto);
         }
+
+        BigDecimal totalCost = BigDecimal.ZERO;
+
+
+        for (CartItemDto cartItemDto :cartItemDtos){
+
+//                totalVAT=totalVAT.add()
+            totalCost =totalCost.add(cartItemDto.getProduct().getPrice().multiply(new BigDecimal( cartItemDto.getOrderQuantity())));
+
+        }
+
+        return new CartDto(cartItemDtos,totalCost);
+    }
 
         @Override
         public Cart updateCart(Cart cart, Long id) throws CartNotFoundException {

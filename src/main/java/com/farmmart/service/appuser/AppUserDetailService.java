@@ -75,6 +75,19 @@ public class AppUserDetailService implements AppUserService, UserDetailsService 
     }
 
     @Override
+    public AppUser userLogIn(AppUser appUser) throws AppUserNotFoundException {
+        AppUser savedAppUser= appUserRepository.findByUserName(appUser.getUsername());
+
+        if(!appUser.getUsername().equals(savedAppUser.getUsername()) || !appUser.getPassword().equals(savedAppUser.getPassword())){
+
+            throw new AppUserNotFoundException("Invalid credentials");
+
+        }else log.info("Successfully signed in");
+
+        return savedAppUser;
+    }
+
+    @Override
     public void addRoleToUser(String username, String roleName) {
 
         AppUser appUser=appUserRepository.findByUserName(username);

@@ -1,4 +1,4 @@
-package com.farmmart.controller.colourrestcontroller;
+package com.farmmart.controller.colour;
 
 import com.farmmart.data.model.colour.Colour;
 import com.farmmart.data.model.colour.ColourNotFoundException;

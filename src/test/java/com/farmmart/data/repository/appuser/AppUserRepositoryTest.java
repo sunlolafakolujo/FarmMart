@@ -58,7 +58,7 @@ class AppUserRepositoryTest {
     void testThatYouCanSaveAppUser() throws AddressNotFoundException {
         Long id=1L;
         address=addressRepository.findById(id).orElseThrow(()-> new AddressNotFoundException("Address Not Found"));
-        Set<Address> addresses=new HashSet<>();
+        List<Address> addresses=new ArrayList<>();
         addresses.add(address);
 
         userRole.setRoleName("INTERN");

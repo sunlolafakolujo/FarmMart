@@ -7,6 +7,7 @@ import com.farmmart.data.model.customer.CustomerNotFoundException;
 import com.farmmart.data.model.localgovernment.LocalGovernment;
 import com.farmmart.data.model.staticdata.AgeRange;
 import com.farmmart.data.model.staticdata.Gender;
+import com.farmmart.data.model.staticdata.UserType;
 import com.farmmart.data.model.userrole.UserRole;
 import com.farmmart.data.repository.address.AddressRepository;
 import com.farmmart.data.repository.appuser.AppUserRepository;
@@ -17,6 +18,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,6 +47,9 @@ class CustomerRepositoryTest {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     LocalGovernment localGovernment;
 
@@ -76,7 +81,7 @@ class CustomerRepositoryTest {
         address.setPostZipCode("");
         address.setLandMark("Bar Beach Bus Stop");
 
-        Set<Address> addresses=new HashSet<>();
+        List<Address> addresses=new ArrayList<>();
         addresses.add(address);
 
         userRole=userRoleRepository.findByRoleName("Role_CUSTOMER");
@@ -85,9 +90,10 @@ class CustomerRepositoryTest {
 
 
         appUser.setUsername("StevenEse");
-        appUser.setPassword("123456");
+        appUser.setPassword(passwordEncoder.encode("123456"));
         appUser.setPhone("08087645621");
         appUser.setEmail("stevecode@Yahoo.com");
+        appUser.setUserType(UserType.CUSTOMER);
         appUser.setAddresses(addresses);
         appUser.setUserRoles(userRoles);
 

@@ -73,10 +73,10 @@ VALUES (1,'BUSINESS','Logic Gate Integrated Services Limited','RC158854','170907
        (3,'BUSINESS','First Achiever','RC257388','2577893679','Akintunde Okekunle','INTERNATIONAL_PASSPORT',
        'A0675446','2018-12-03','2023-12-02','OWN','Agro Training',7);
 
-INSERT INTO employee(id,first_name,last_name,other_names,gender,dob,next_of_kin,relationship_with_next_of_kin,hired_date,
+INSERT INTO employee(id,first_name,last_name,other_names,gender,dob,age,next_of_kin,relationship_with_next_of_kin,hired_date,
             end_date,app_user_id)
-values (1,'Hephzibah','Fakolujo','Oluwapamilerin','MALE','2008-04-12','Folawemi Fakolujo','BROTHER','2007-09-10','',5),
-       (2,'Akinwunmi','Akinola','Aderagbemi','FEMALE','1980-06-20','Atolagbe Ijaduola','BROTHER','2008-09-01','',6);
+values (1,'Hephzibah','Fakolujo','Oluwapamilerin','MALE','2008-04-12',14,'Folawemi Fakolujo','BROTHER','2007-09-10','',5),
+       (2,'Akinwunmi','Akinola','Aderagbemi','FEMALE','1980-06-20',42,'Atolagbe Ijaduola','BROTHER','2008-09-01','',6);
 
 INSERT INTO category(id,category_name)
 VALUES (1,'Horticulture'),(2,'Poultry'),(3,'Aquatic'),(4,'Livestock'),(5,'Fruit Crops'),(6,'Cash Crops'),
@@ -117,7 +117,7 @@ VALUES(1, 'Grooming','Grooming of Livestocks and Aquatic Animals',24,2),
 INSERT INTO cart(id,order_quantity,product_id,app_user_id)
 VALUES (1,2,1,1),(2,3,3,1);
 
---INSERT INTO customer_order(id,customer_id,amount,order_date)
+--INSERT INTO order(id,app_user_id,amount_total,order_date,)
 --VALUES (1,1,50000,now()), (2,1,16500,now()),(3,1,6000,now());
 
 SET FOREIGN_KEY_CHECKS=1;

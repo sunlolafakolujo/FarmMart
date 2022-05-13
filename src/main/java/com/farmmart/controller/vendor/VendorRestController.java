@@ -1,4 +1,4 @@
-package com.farmmart.controller.vendorrestcontroller;
+package com.farmmart.controller.vendor;
 
 import com.farmmart.data.model.appuser.AppUser;
 import com.farmmart.data.model.appuser.AppUserNotFoundException;
@@ -35,7 +35,7 @@ public class VendorRestController {
 
     private final UserRoleServiceImpl userRoleService;
 
-    @PostMapping("/registerVendor")
+    @PostMapping("/vendorRegistration")
     public ResponseEntity<NewVendor> registerVendor(@Valid @RequestBody NewVendor newVendor) throws UserRoleNotFoundException, VendorNotFoundException {
 
         newVendor.getAppUser().setUserType(UserType.VENDOR);

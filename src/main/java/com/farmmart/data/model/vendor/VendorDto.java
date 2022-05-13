@@ -1,6 +1,5 @@
 package com.farmmart.data.model.vendor;
 
-import com.farmmart.data.model.appuser.AppUser;
 import com.farmmart.data.model.staticdata.BusinessEntity;
 import com.farmmart.data.model.staticdata.MeansOfIdentification;
 import com.farmmart.data.model.staticdata.Status;
@@ -41,5 +40,5 @@ public class VendorDto {
 
     private Status status;
 
-    private AppUser appUser;
+    private String phone;
 }

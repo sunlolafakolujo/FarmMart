@@ -9,7 +9,11 @@ public enum Status {
     SACKED("Sacked"),
     DELIVERED("Delivered"),
     RETURNED("Returned"),
-    CANCELLED("Cancelled");
+    CANCELLED("Cancelled"),
+    CONTRACT("Contract"),
+    INTERN("Intern"),
+    STAFF("Staff"),
+    PAID("Paid");
 
     private final String status;
 

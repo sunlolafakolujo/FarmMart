@@ -1,7 +1,6 @@
 package com.farmmart.service.customer;
 
 import com.farmmart.data.model.appuser.AppUser;
-
 import com.farmmart.data.model.customer.Customer;
 import com.farmmart.data.model.customer.CustomerNotFoundException;
 import com.farmmart.data.model.staticdata.AgeRange;
@@ -13,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @Slf4j

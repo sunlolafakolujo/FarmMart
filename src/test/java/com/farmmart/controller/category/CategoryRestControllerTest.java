@@ -1,4 +1,4 @@
-package com.farmmart.controller.categoryrestcontroller;
+package com.farmmart.controller.category;
 
 import com.farmmart.data.model.category.Category;
 import com.farmmart.data.model.category.CategoryNotFoundException;
