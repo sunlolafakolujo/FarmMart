@@ -1,4 +1,4 @@
-package com.farmmart.controller.appuserrestcontroller;
+package com.farmmart.controller.appuser;
 
 import com.farmmart.data.model.appuser.*;
 import com.farmmart.data.model.staticdata.UserType;
@@ -26,7 +26,7 @@ public class AppUserRestController {
 
     private final ModelMapper modelMapper;
 
-    @PostMapping("/registerUser")
+    @PostMapping("/userRegistration")
     public ResponseEntity<NewAppUser> saveAppUser(@Valid @RequestBody NewAppUser newAppUser)
                                                         throws AppUserNotFoundException {
 
@@ -41,21 +41,21 @@ public class AppUserRestController {
 
     @PostMapping("/signIn")
     @PreAuthorize("hasAnyAuthority('ROLE_CUSTOMER','ROLE_VENDOR','ROLE_EMPLOYEE','ROLE_ADMIN')")
-    public ResponseEntity<AppUserSignInDto> signIn(@RequestBody AppUserSignInDto appUserSignInDto) throws AppUserNotFoundException {
+    public ResponseEntity<AppUserLogIn> signIn(@RequestBody AppUserLogIn appUserSignInDto) throws AppUserNotFoundException {
         AppUser appUser=modelMapper.map(appUserSignInDto, AppUser.class);
 
-        AppUser post=appUserService.signIn(appUser);
+        AppUser post=appUserService.userLogIn(appUser);
 
-        AppUserSignInDto posted=modelMapper.map(post, AppUserSignInDto.class);
+        AppUserLogIn posted=modelMapper.map(post, AppUserLogIn.class);
 
         return ResponseEntity.ok().body(posted);
     }
 
-    @PostMapping("/addRoleToUser")
+    @PostMapping("/addRoleToUser/{username}, {roleName}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public ResponseEntity<?> addRoleToUser(@RequestBody RoleToUser addRoleToUser){
+    public ResponseEntity<?> addRoleToUser(@PathVariable(value = "username")String username,@PathVariable(value = "roleName") String roleName){
 
-        appUserService.addRoleToUser(addRoleToUser.getUsername(), addRoleToUser.getRole());
+        appUserService.addRoleToUser(username,roleName);
 
         return ResponseEntity.ok().build();
     }
