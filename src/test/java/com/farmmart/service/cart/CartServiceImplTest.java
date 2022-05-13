@@ -79,7 +79,7 @@ class CartServiceImplTest {
 
         Mockito.when(cartRepository.findCartByAppUser(appUser)).thenReturn(carts);
 
-        cartService.listCartItems(appUser,username);
+        cartService.listCartItems(appUser);
 
         Mockito.verify(cartRepository, times(1)).findCartByAppUser(appUser);
 
@@ -109,13 +109,28 @@ class CartServiceImplTest {
     }
 
     @Test
-    void testThatYouCanMockDeleteCartByIdMethod() throws CartNotFoundException {
+    void testThatYouCanMockDeleteCartByAppUserMethod() throws CartNotFoundException {
+        String username ="BukolaFako";
+        appUser=appUserRepository.findByUserName(username);
+
+        List<Cart> carts=cartRepository.findCartByAppUser(appUser);
+
+        doNothing().when(cartRepository).deleteAll(carts);
+
+        cartService.deleteCartByAppUser(username);
+
+        verify(cartRepository,times(1)).deleteAll(carts);
+    }
+
+    @Test
+    void testThatYouCanDeleteCartById(){
         Long id=2L;
-        doNothing().when(cartRepository).deleteById(id);
 
-        cartService.deleteCartById(id);
+        doNothing().when(cartRepository.findById(id));
 
-        verify(cartRepository,times(1)).deleteById(id);
+        cartService.findCartById(id);
+
+        verify(cartRepository, times(1)).deleteById(id);
     }
 
     @Test

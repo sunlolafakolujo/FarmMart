@@ -1,21 +1,23 @@
 package com.farmmart.data.model.order;
 
-import com.farmmart.data.model.customer.Customer;
+import com.farmmart.data.model.appuser.AppUser;
+import com.farmmart.data.model.orderitem.OrderItem;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NewCustomerOrder {
+public class NewOrder {
 
-    private BigDecimal amount;
+    private LocalDateTime orderDate;
 
-    private Date orderDate;
+    private AppUser appUser;
 
-    private Customer customer;
+    private List<OrderItem> orderItems;
+
 }

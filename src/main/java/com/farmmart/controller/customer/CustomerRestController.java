@@ -37,7 +37,8 @@ public class CustomerRestController {
     private final ModelMapper modelMapper;
 
     @PostMapping("/registerCustomer")
-    public ResponseEntity<NewCustomer> registerCustomer(@Valid @RequestBody NewCustomer newCustomer) throws UserRoleNotFoundException {
+    public ResponseEntity<NewCustomer> registerCustomer(@Valid @RequestBody NewCustomer newCustomer)
+                                                        throws UserRoleNotFoundException {
 
         newCustomer.getAppUser().setUserType(UserType.CUSTOMER);
 
@@ -167,7 +168,8 @@ public class CustomerRestController {
         customerDto.setLastName(customer.getLastName());
         customerDto.setGender(customer.getGender());
         customerDto.setAgeRange(customer.getAgeRange());
-        customerDto.setAppUser(customer.getAppUser());
+        customerDto.setPhone(customer.getAppUser().getPhone());
+        customerDto.setAddresses(customer.getAppUser().getAddresses());
 
         return customerDto;
     }

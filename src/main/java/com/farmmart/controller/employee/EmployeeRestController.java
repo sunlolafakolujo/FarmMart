@@ -179,7 +179,9 @@ public class EmployeeRestController {
         employeeDto.setRelationshipWithNextOfKin(employee.getRelationshipWithNextOfKin());
         employeeDto.setHiredDate(employee.getHiredDate());
         employeeDto.setEndDate(employee.getEndDate());
-        employeeDto.setAppUser(employee.getAppUser());
+        employeeDto.setPhone(employee.getAppUser().getPhone());
+        employeeDto.setEmail(employee.getAppUser().getEmail());
+        employeeDto.setAddresses(employee.getAppUser().getAddresses());
 
         return employeeDto;
     }

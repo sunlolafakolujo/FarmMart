@@ -55,6 +55,8 @@ public class CartController {
 
         AppUser appUser=appUserDetailService.findUserByUsername(username);
 
+//        CartDto cartDto= cartService.listCartItems(appUser);
+
         CartDto cartDto= cartService.listCartItems(appUser,username);
 
         return ResponseEntity.ok().body(cartDto);
@@ -80,6 +82,14 @@ public class CartController {
         ModifyCart postCart=modelMapper.map(updatedCart, ModifyCart.class);
 
         return ResponseEntity.ok().body(postCart);
+    }
+
+    @DeleteMapping("/deleteCartByAppUser/{username}")
+    @PreAuthorize("hasAnyAuthority('ROLE_CUSTOMER','ROLE_ADMIN')")
+    public ResponseEntity<?> deleteCartByAppUser(@PathVariable(value = "username") String username) throws CartNotFoundException {
+        cartService.deleteCartByAppUser(username);
+
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/deleteCartById/{id}")

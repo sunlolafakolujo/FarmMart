@@ -1,4 +1,4 @@
-package com.farmmart.controller.addressrestcontroller;
+package com.farmmart.controller.address;
 
 import com.farmmart.data.model.address.*;
 import com.farmmart.data.model.localgovernment.LocalGovernment;
@@ -112,7 +112,9 @@ public class AddressRestController {
         addressDto.setStreetName(address.getStreetName());
         addressDto.setCity(address.getCity());
         addressDto.setPostZipCode(address.getPostZipCode());
-        addressDto.setLocalGovernment(address.getLocalGovernment());
+        addressDto.setLocalGovernmentName(address.getLocalGovernment().getLocalGovernmentName());
+        addressDto.setStateName(address.getLocalGovernment().getState().getStateName());
+        addressDto.setCountryName(address.getLocalGovernment().getState().getCountry().getCountryName());
 
         return addressDto;
     }

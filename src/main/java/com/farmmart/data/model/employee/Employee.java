@@ -4,6 +4,7 @@ import com.farmmart.data.model.appuser.AppUser;
 import com.farmmart.data.model.baseaudit.BaseAudit;
 import com.farmmart.data.model.staticdata.Gender;
 import com.farmmart.data.model.staticdata.RelationshipWithNextOfKin;
+import com.farmmart.data.model.staticdata.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
@@ -27,6 +28,9 @@ public class Employee extends BaseAudit {
     private String lastName;
 
     private String otherNames;
+
+    @Enumerated(EnumType.STRING)
+    private Status employeeStatus;
 
     @JsonFormat
     private LocalDate dob;

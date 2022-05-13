@@ -25,13 +25,14 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @Slf4j
@@ -85,7 +86,7 @@ class CustomerRestControllerTest {
         address.setPostZipCode("100111");
         address.setLandMark("Crystal Place Estate");
 
-        Set<Address> addresses=new HashSet<>();
+        List<Address> addresses=new ArrayList<>();
         addresses.add(address);
 
         appUser.setAddresses(addresses);

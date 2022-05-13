@@ -11,6 +11,5 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Long>, ProductRepositoryCustom {
 
-    @Query("From Product p Where p.price Between  ?1 And ?2")
-    List<Product> findProductByPriceRange(BigDecimal minPrice, BigDecimal maxPrice);
+
 }

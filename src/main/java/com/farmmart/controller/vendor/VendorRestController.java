@@ -160,7 +160,7 @@ public class VendorRestController {
        vendorDto.setMeansOfIdExpiryDate(vendor.getMeansOfIdExpiryDate());
        vendorDto.setRepresentative(vendor.getRepresentative());
        vendorDto.setNatureOfBusiness(vendor.getNatureOfBusiness());
-       vendorDto.setAppUser(vendor.getAppUser());
+       vendorDto.setPhone(vendor.getAppUser().getPhone());
 
         return vendorDto;
     }

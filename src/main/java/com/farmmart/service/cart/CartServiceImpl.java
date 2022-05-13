@@ -15,7 +15,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 @Service
 @Transactional
 public class CartServiceImpl implements CartService{
@@ -41,9 +40,9 @@ public class CartServiceImpl implements CartService{
         }
 
         @Override
-        public CartDto listCartItems(AppUser appUser,String username) {
+        public CartDto listCartItems(AppUser appUser) {
 
-            appUser=appUserRepository.findByUserName(username);
+            AppUser appUsername=appUserRepository.findByUserName(appUser.getUsername());
 
             List<Cart> carts=cartRepository.findCartByAppUser(appUser);
 
@@ -60,7 +59,7 @@ public class CartServiceImpl implements CartService{
 
             for (CartItemDto cartItemDto :cartItemDtos){
 
-                totalCost =totalCost.add(cartItemDto.getPrice().multiply(new BigDecimal( cartItemDto.getOrderQuantity())));
+                totalCost =totalCost.add(cartItemDto.getProduct().getPrice().multiply(new BigDecimal( cartItemDto.getOrderQuantity())));
             }
 
             return new CartDto(cartItemDtos,totalCost);
@@ -79,22 +78,27 @@ public class CartServiceImpl implements CartService{
             return cartRepository.save(savedCart);
         }
 
-        @Override
+    @Override
+    public void deleteCartById(Long id) {
+        if (cartRepository.existsById(id)){
+            cartRepository.deleteById(id);
+        }
+    }
+
+    @Override
         public List<Cart> findAllCarts() {
+
             return cartRepository.findAll();
         }
 
         @Override
-        public void deleteCartById(Long id) throws CartNotFoundException {
+        public void deleteCartByAppUser(String username) throws CartNotFoundException {
 
-            cartRepository.deleteById(id);
+            AppUser appUser=appUserRepository.findByUserName(username);
 
-            Optional<Cart> optionalCart=cartRepository.findById(id);
+            List<Cart> carts=cartRepository.findCartByAppUser(appUser);
 
-            if (optionalCart.isPresent()){
-
-                throw new CartNotFoundException("Cart id "+id+" is not deleted");
-            }
+            cartRepository.deleteAll(carts);
         }
 
         @Override

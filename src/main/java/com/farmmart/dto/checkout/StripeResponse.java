@@ -9,6 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class SessionResponse {
+public class StripeResponse {
+
     private String sessionId;
 }

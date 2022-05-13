@@ -4,6 +4,7 @@ import com.farmmart.data.model.appuser.AppUser;
 import com.farmmart.data.model.employee.Employee;
 import com.farmmart.data.model.employee.EmployeeNotFoundException;
 import com.farmmart.data.model.staticdata.Gender;
+import com.farmmart.data.model.staticdata.Status;
 import com.farmmart.data.repository.appuser.AppUserRepository;
 import com.farmmart.data.repository.employee.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;

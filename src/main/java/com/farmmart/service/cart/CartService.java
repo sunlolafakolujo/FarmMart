@@ -11,9 +11,10 @@ public interface CartService {
 
     Cart addToCart(Cart newCart);
     Cart findCartById(Long id);
-    CartDto listCartItems(AppUser appUser,String username);
+    CartDto listCartItems(AppUser appUser);
     List<Cart> findAllCarts();
     Cart updateCart(Cart cart, Long id) throws CartNotFoundException;
-    void deleteCartById(Long id) throws CartNotFoundException;
+    void deleteCartById(Long id);
+    void deleteCartByAppUser(String username) throws CartNotFoundException;
     void deleteAllCarts();
 }

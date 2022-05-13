@@ -153,6 +153,16 @@ class CartControllerTest {
     }
 
     @Test
+    void testThatWhenYouCallDeleteCartByAppUser_thenUserCartIsDeleted() throws Exception {
+
+        this.mockMvc.perform(delete("/api/cart/deleteCartByAppUser/AkinEmma")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer "))
+                .andDo(print())
+                .andExpect(status().isNoContent())
+                .andReturn();
+    }
+
+    @Test
     void testThatWhenYouCallDeleteAllCarts_thenCartIsOrAreDeleted() throws Exception {
 
         this.mockMvc.perform(delete("/api/cart/deleteAllCarts")

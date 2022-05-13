@@ -13,7 +13,4 @@ import java.util.List;
 public class CartDto {
     private List<CartItemDto> cartItems;
     private BigDecimal total;
-//    private BigDecimal totalVAT;
-//    private BigDecimal grandTotal;
-
 }

@@ -25,6 +25,9 @@ public interface ProductRepositoryCustom {
     @Query("From Product p Where p.price >= ?1")
     List<Product> findProductByPriceGreaterThanOrEqualsTo(BigDecimal price);
 
+    @Query("From Product p Where p.price Between  ?1 And ?2")
+    List<Product> findProductByPriceRange(BigDecimal minPrice, BigDecimal maxPrice);
+
     @Query("From Product p Where p.partNumber=?1")
     List<Product> findProductByPartNumber(String partNumber);
 

@@ -39,6 +39,18 @@ public class AppUserRestController {
         return new ResponseEntity<>(postedAppUser, HttpStatus.CREATED);
     }
 
+    @PostMapping("/signIn")
+    @PreAuthorize("hasAnyAuthority('ROLE_CUSTOMER','ROLE_VENDOR','ROLE_EMPLOYEE','ROLE_ADMIN')")
+    public ResponseEntity<AppUserSignInDto> signIn(@RequestBody AppUserSignInDto appUserSignInDto) throws AppUserNotFoundException {
+        AppUser appUser=modelMapper.map(appUserSignInDto, AppUser.class);
+
+        AppUser post=appUserService.signIn(appUser);
+
+        AppUserSignInDto posted=modelMapper.map(post, AppUserSignInDto.class);
+
+        return ResponseEntity.ok().body(posted);
+    }
+
     @PostMapping("/addRoleToUser")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<?> addRoleToUser(@RequestBody RoleToUser addRoleToUser){
