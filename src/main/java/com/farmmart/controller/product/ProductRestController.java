@@ -1,4 +1,4 @@
-package com.farmmart.controller.productrestcontroller;
+package com.farmmart.controller.product;
 
 import com.farmmart.data.model.category.Category;
 import com.farmmart.data.model.category.CategoryNotFoundException;
@@ -74,7 +74,8 @@ public class ProductRestController {
     }
 
     @GetMapping("/findProductByBrand/{brand}")
-    public ResponseEntity<List<ProductDto>> getProductByBrand(@PathVariable(value = "brand") String productBrand) throws ProductNotFoundException {
+    public ResponseEntity<List<ProductDto>> getProductByBrand(@PathVariable(value = "brand") String productBrand)
+                                                                                throws ProductNotFoundException {
 
         return ResponseEntity.ok().body(productService.findProductByBrand(productBrand)
                 .stream()
@@ -82,8 +83,9 @@ public class ProductRestController {
                 .collect(Collectors.toList()));
     }
 
-    @GetMapping("/findProductByPriceLessThan/{price}")
-    public ResponseEntity<List<ProductDto>> getProductPriceLessThanOrEqualsTo(@PathVariable(value = "price")BigDecimal price) throws ProductNotFoundException {
+    @GetMapping("/findProductByPriceLessThanOrEqualsTo/{price}")
+    public ResponseEntity<List<ProductDto>> getProductPriceLessThanOrEqualsTo(@PathVariable(value = "price")BigDecimal price)
+                                                                                    throws ProductNotFoundException {
 
         return ResponseEntity.ok().body(productService.findProductByPriceLessThanOrEquals(price)
                 .stream()
@@ -91,8 +93,9 @@ public class ProductRestController {
                 .collect(Collectors.toList()));
     }
 
-    @GetMapping("/findProductByPriceGreaterThan/{price}")
-    public ResponseEntity<List<ProductDto>> getProductPriceGreaterThanOrEqualsTo(@PathVariable(value = "price") BigDecimal price) throws ProductNotFoundException {
+    @GetMapping("/findProductByPriceGreaterThanOrEqualsTo/{price}")
+    public ResponseEntity<List<ProductDto>> getProductPriceGreaterThanOrEqualsTo(@PathVariable(value = "price") BigDecimal price)
+                                                                                        throws ProductNotFoundException {
 
         return ResponseEntity.ok().body(productService.findProductByPriceGreaterThanOrEquals(price)
                 .stream()
@@ -103,7 +106,7 @@ public class ProductRestController {
     @GetMapping("/findProductByPriceRange/{minPrice}, {maxPrice}")
     public ResponseEntity<List<ProductDto>> getProductByPriceRange(@PathVariable(value = "minPrice") BigDecimal minPrice,
                                                                    @PathVariable(value = "maxPrice") BigDecimal maxPrice)
-                                                                   throws ProductNotFoundException {
+                                                                    throws ProductNotFoundException {
 
         return ResponseEntity.ok().body(productService.findProductByPriceRange(minPrice, maxPrice)
                 .stream()
@@ -112,7 +115,8 @@ public class ProductRestController {
     }
 
     @GetMapping("/findProductByPartNumber/{partNo}")
-    public ResponseEntity<List<ProductDto>> getProductByPartNumber(@PathVariable(value = "partNo") String partNumber) throws ProductNotFoundException {
+    public ResponseEntity<List<ProductDto>> getProductByPartNumber(@PathVariable(value = "partNo") String partNumber)
+                                                                                    throws ProductNotFoundException {
 
         return ResponseEntity.ok().body(productService.findProductByPartNumber(partNumber)
                 .stream()
