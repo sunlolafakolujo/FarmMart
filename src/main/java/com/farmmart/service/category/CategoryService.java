@@ -10,7 +10,7 @@ public interface CategoryService {
     Category saveCategory(Category category) throws CategoryNotFoundException;
     Category findCategoryById(Long id) throws CategoryNotFoundException;
     Category findCategoryByName(String categoryName) throws CategoryNotFoundException;
-    List<Category> findAllCategories();
+    List<Category> findAllCategories(Integer limit);
     Category updateCategory(Category category,long id) throws CategoryNotFoundException;
     void deleteCategoryById(Long id) throws CategoryNotFoundException;
     void deleteAllCategories();

@@ -9,12 +9,15 @@ import com.farmmart.data.repository.appuser.AppUserRepository;
 import com.farmmart.data.repository.customer.CustomerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -27,8 +30,15 @@ public class CustomerServiceImpl implements CustomerService{
     @Autowired
     private AppUserRepository appUserRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public Customer saveCustomer(Customer customer) {
+
+        customer.getAppUser().setPassword(passwordEncoder.encode(customer.getAppUser().getPassword()));
+
+        customer.setCustomerCode("CUS".concat(UUID.randomUUID().toString().replace("-", "").toUpperCase()));
 
         return customerRepository.save(customer);
     }
@@ -66,8 +76,8 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public List<Customer> findAllCustomers() {
-        return customerRepository.findAll();
+    public List<Customer> findAllCustomers(Integer limit) {
+        return customerRepository.findAll(PageRequest.of(0,limit)).toList();
     }
 
     @Override

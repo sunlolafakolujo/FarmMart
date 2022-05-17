@@ -22,7 +22,7 @@ public interface ProductService {
     List<Product> findProductByPartNumber(String partNumber) throws ProductNotFoundException;
     List<Product> findProductByCategory(Category category, String categoryName) throws CategoryNotFoundException;
     List<Product> findProductByVendor(Vendor vendor, String vendorName);
-    List<Product> findAllProduct();
+    List<Product> findAllProduct(Integer limit);
     Product updateProduct(Product product, Long id) throws ProductNotFoundException;
     void deleteProductById(Long id) throws ProductNotFoundException;
     void deleteAllProduct();

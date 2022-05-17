@@ -63,7 +63,7 @@ public class StateRestController {
     @GetMapping("/findAllStates")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<List<StateDto>> getAllStates(){
-        return ResponseEntity.ok().body(stateService.findAllStates()
+        return ResponseEntity.ok().body(stateService.findAllStates(10)
                 .stream()
                 .map(this::convertStateToDto)
                 .collect(Collectors.toList()));

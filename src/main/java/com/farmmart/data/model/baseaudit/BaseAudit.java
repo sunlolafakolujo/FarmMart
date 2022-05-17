@@ -1,5 +1,6 @@
 package com.farmmart.data.model.baseaudit;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -14,10 +15,12 @@ import java.time.LocalDateTime;
 public class BaseAudit implements Serializable {
 
     @JsonIgnore
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @CreationTimestamp
     private LocalDateTime createdDate;
 
     @JsonIgnore
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @UpdateTimestamp
     private LocalDateTime modifiedDate;
 }

@@ -14,7 +14,7 @@ public interface ServiceService {
     Service saveService(Service service);
     Service findServiceById(Long id) throws ServiceNotFoundException;
     Service findServiceByName(String name) throws ServiceNotFoundException;
-    List<Service> findAllServices();
+    List<Service> findAllServices(Integer limit);
     List<Service> findServiceByCategory(Category category, String categoryName) throws CategoryNotFoundException;
     List<Service> findServiceByVendor(Vendor vendor, String vendorName) throws VendorNotFoundException;
     Service updateService(Service service,Long id) throws ServiceNotFoundException;

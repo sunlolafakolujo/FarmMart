@@ -6,13 +6,10 @@ import com.farmmart.data.model.state.StateNotFoundException;
 import com.farmmart.data.model.state.States;
 import com.farmmart.data.repository.country.CountryRepository;
 import com.farmmart.data.repository.state.StateRepository;
-import com.farmmart.service.country.CountryService;
-import com.farmmart.service.country.CountryServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -20,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
@@ -90,7 +87,7 @@ class StateServiceImplTest {
 
         Mockito.when(stateRepository.findAll()).thenReturn(statesList);
 
-        stateService.findAllStates();
+        stateService.findAllStates(10);
 
         Mockito.verify(stateRepository,Mockito.times(1)).findAll();
     }

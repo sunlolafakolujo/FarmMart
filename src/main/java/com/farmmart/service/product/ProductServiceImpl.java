@@ -10,6 +10,7 @@ import com.farmmart.data.repository.product.ProductRepository;
 import com.farmmart.data.repository.vendor.VendorRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -155,9 +156,9 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<Product> findAllProduct() {
+    public List<Product> findAllProduct(Integer limit) {
 
-        return productRepository.findAll();
+        return productRepository.findAll(PageRequest.of(0,limit)).toList();
     }
 
     @Override

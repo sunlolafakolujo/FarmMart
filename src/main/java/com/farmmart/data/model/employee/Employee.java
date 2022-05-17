@@ -24,6 +24,8 @@ public class Employee extends BaseAudit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String employeeCode;
+
     private String firstName;
 
     private String lastName;

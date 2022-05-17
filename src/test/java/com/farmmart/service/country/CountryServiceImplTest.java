@@ -6,7 +6,10 @@ import com.farmmart.data.repository.country.CountryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.*;
+import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.jdbc.Sql;
@@ -15,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
@@ -73,25 +76,13 @@ class CountryServiceImplTest {
         Mockito.verify(countryRepository,Mockito.times(1)).findByCountyName(countryName);
     }
 
-//    @Test
-//    void testThatYouCanMockFindAllCountryMethod() {
-//        Pageable countries=Pageable.ofSize(0);
-//        Page<Country> c=new PageImpl(countries);
-//
-//
-//        Mockito.when(countryRepository.findAll(countries)).thenReturn()
-//
-//        countryService.findAllCountry(0,10,Sort.Direction.ASC);
-//
-//        Mockito.verify(countryRepository,Mockito.times(1)).findAll();
-//    }
     @Test
     void testThatYouCanMockFindAllCountryMethod() {
         List<Country> countries=new ArrayList<>();
 
         Mockito.when(countryRepository.findAll()).thenReturn(countries);
 
-        countryService.findAllCountries();
+        countryService.findAllCountries(10);
 
         Mockito.verify(countryRepository,Mockito.times(1)).findAll();
     }

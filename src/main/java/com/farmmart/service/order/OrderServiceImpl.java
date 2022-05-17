@@ -13,6 +13,7 @@ import com.farmmart.data.repository.orderdetail.OrderItemRepository;
 import com.farmmart.service.cart.CartService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -85,10 +86,10 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public List<CustomerOrder> findAllOrder() {
+    public List<CustomerOrder> findAllOrder(Integer limit) {
         log.info("Fetch all Orders");
 
-        return orderRepository.findAll();
+        return orderRepository.findAll(PageRequest.of(0,limit)).toList();
     }
 
     @Override

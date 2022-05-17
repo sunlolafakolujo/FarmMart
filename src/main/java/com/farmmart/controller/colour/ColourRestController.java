@@ -59,7 +59,7 @@ public class ColourRestController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<List<ColourDto>> getAllColours(){
 
-        return ResponseEntity.ok().body(colourService.findAllColours()
+        return ResponseEntity.ok().body(colourService.findAllColours(10)
                 .stream()
                 .map(this::convertColourToDto)
                 .collect(Collectors.toList()));

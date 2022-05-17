@@ -120,4 +120,7 @@ VALUES (1,2,1,1),(2,3,3,1);
 --INSERT INTO order(id,app_user_id,amount_total,order_date,)
 --VALUES (1,1,50000,now()), (2,1,16500,now()),(3,1,6000,now());
 
+--INSERT INTO wish_list(id,created_date,app_user_id,product_id)
+--VALUES ()
+
 SET FOREIGN_KEY_CHECKS=1;

@@ -13,7 +13,7 @@ public interface VendorService {
     Vendor findVendorByName(String name) throws VendorNotFoundException;
     Vendor findVendorByRCNumber(String rcNumber) throws VendorNotFoundException;
     List<Vendor> findVendorByBusinessEntity(BusinessEntity businessEntity) throws VendorNotFoundException;
-    List<Vendor> findAllVendors();
+    List<Vendor> findAllVendors(Integer limit);
     Vendor findVendorByUsername(AppUser appUser, String username);
     Vendor updateVendorById(Vendor vendor, Long id) throws VendorNotFoundException;
     void deleteVendorById(Long id) throws VendorNotFoundException;

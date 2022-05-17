@@ -39,7 +39,7 @@ public class EmployeeRestController {
 
     @PostMapping("/registerEmployee")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public ResponseEntity<NewEmployee> registerEmployee(@Valid @RequestBody NewEmployee newEmployee) throws UserRoleNotFoundException {
+    public ResponseEntity<NewEmployee> registerEmployee(@Valid @RequestBody NewEmployee newEmployee) throws UserRoleNotFoundException, EmployeeNotFoundException {
 
         newEmployee.getAppUser().setUserType(UserType.EMPLOYEE);
 
@@ -118,7 +118,7 @@ public class EmployeeRestController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<List<EmployeeDto>> getAllEmployees(){
 
-        return ResponseEntity.ok().body(employeeService.findAllEmployee()
+        return ResponseEntity.ok().body(employeeService.findAllEmployee(10)
                 .stream()
                 .map(this::convertEmployeeToDto)
                 .collect(Collectors.toList()));
@@ -174,6 +174,8 @@ public class EmployeeRestController {
     private EmployeeDto convertEmployeeToDto(Employee employee){
         EmployeeDto employeeDto=new EmployeeDto();
 
+        employeeDto.setId(employee.getId());
+        employeeDto.setEmployeeCode(employee.getEmployeeCode());
         employeeDto.setFirstName(employee.getFirstName());
         employeeDto.setLastName(employee.getLastName());
         employeeDto.setOtherNames(employee.getOtherNames());

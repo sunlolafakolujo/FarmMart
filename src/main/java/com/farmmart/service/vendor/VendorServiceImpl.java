@@ -8,12 +8,15 @@ import com.farmmart.data.repository.appuser.AppUserRepository;
 import com.farmmart.data.repository.userrole.UserRoleRepository;
 import com.farmmart.data.repository.vendor.VendorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -27,6 +30,9 @@ public class VendorServiceImpl implements VendorService{
     @Autowired
     private UserRoleRepository userRoleRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public Vendor saveVendor(Vendor vendor) throws VendorNotFoundException {
 
@@ -37,6 +43,10 @@ public class VendorServiceImpl implements VendorService{
         if (name!=null || rcNumber!=null){
             throw new VendorNotFoundException("Vendor already exist");
         }
+
+        vendor.setVendorCode("VEN".concat(UUID.randomUUID().toString().replace("-", "").toUpperCase()));
+
+        vendor.getAppUser().setPassword(passwordEncoder.encode(vendor.getAppUser().getPassword()));
 
         return vendorRepository.save(vendor);
     }
@@ -80,9 +90,9 @@ public class VendorServiceImpl implements VendorService{
     }
 
     @Override
-    public List<Vendor> findAllVendors() {
+    public List<Vendor> findAllVendors(Integer limit) {
 
-        return vendorRepository.findAll();
+        return vendorRepository.findAll(PageRequest.of(0,limit)).toList();
     }
 
     @Override

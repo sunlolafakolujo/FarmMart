@@ -1,12 +1,13 @@
 package com.farmmart.data.model.wishlist;
 
-import com.farmmart.data.model.customer.Customer;
+import com.farmmart.data.model.appuser.AppUser;
 import com.farmmart.data.model.product.Product;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -15,16 +16,18 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 public class WishList {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @CreationTimestamp
-    private Date createdDate;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate createdDate;
 
     @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    private Customer customer;
+    private AppUser appUser;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     private Product product;
 }

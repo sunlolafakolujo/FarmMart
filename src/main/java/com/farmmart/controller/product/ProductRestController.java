@@ -148,7 +148,7 @@ public class ProductRestController {
     @GetMapping("/findAllProducts")
     public ResponseEntity<List<ProductDto>> getAllProducts(){
 
-        return ResponseEntity.ok().body(productService.findAllProduct()
+        return ResponseEntity.ok().body(productService.findAllProduct(10)
                 .stream()
                 .map(this::convertProductToDto)
                 .collect(Collectors.toList()));

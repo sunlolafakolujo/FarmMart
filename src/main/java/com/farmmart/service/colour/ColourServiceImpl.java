@@ -44,7 +44,7 @@ public class ColourServiceImpl implements ColourService{
     }
 
     @Override
-    public List<Colour> findAllColours() {
+    public List<Colour> findAllColours(Integer limit) {
 
         List<Colour> colours =colourRepository.findAll();
 

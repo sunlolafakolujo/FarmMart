@@ -61,7 +61,7 @@ public class CountryResController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<List<CountryDto>> getAllCountry(){
 
-        return ResponseEntity.ok().body(countryService.findAllCountries()
+        return ResponseEntity.ok().body(countryService.findAllCountries(10)
                 .stream()
                 .map(country -> modelMapper.map(country,CountryDto.class))
                 .collect(Collectors.toList()));

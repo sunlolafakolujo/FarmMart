@@ -7,6 +7,7 @@ import com.farmmart.data.model.services.Service;
 import com.farmmart.data.model.staticdata.BusinessEntity;
 import com.farmmart.data.model.staticdata.Facility;
 import com.farmmart.data.model.staticdata.MeansOfIdentification;
+import com.farmmart.data.model.staticdata.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -30,6 +31,8 @@ public class Vendor extends BaseAudit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String vendorCode;
+
     @Enumerated(EnumType.STRING)
     private BusinessEntity businessEntity;
 
@@ -48,6 +51,9 @@ public class Vendor extends BaseAudit {
 //    @NotNull
     @Size(max = 10000)
     private String natureOfBusiness;
+
+    @Enumerated(EnumType.STRING)
+    private Status vendorStatus;
 
     @Enumerated(EnumType.STRING)
     private MeansOfIdentification meansOfIdentification;

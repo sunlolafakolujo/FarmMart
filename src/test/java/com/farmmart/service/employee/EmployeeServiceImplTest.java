@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
@@ -129,7 +128,7 @@ class EmployeeServiceImplTest {
 
         Mockito.when(employeeRepository.findAll()).thenReturn(employees);
 
-        employeeService.findAllEmployee();
+        employeeService.findAllEmployee(10);
 
         Mockito.verify(employeeRepository,Mockito.times(1)).findAll();
     }

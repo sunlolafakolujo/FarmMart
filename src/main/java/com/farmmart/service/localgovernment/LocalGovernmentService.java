@@ -10,7 +10,7 @@ public interface LocalGovernmentService {
     LocalGovernment saveLocalGovernment(LocalGovernment localGovernment) throws LocalGovernmentNotFoundException;
     LocalGovernment findLocalGovernmentById(Long id) throws LocalGovernmentNotFoundException;
     LocalGovernment findLocalGovernmentByName(String localGovernmentName) throws LocalGovernmentNotFoundException;
-    List<LocalGovernment> findAllLocalGovernment();
+    List<LocalGovernment> findAllLocalGovernment(Integer limit);
     List<LocalGovernment> findLocalGovernmentByState(States state, String stateName);
     LocalGovernment updateLocalGovernment(LocalGovernment localGovernment,Long id) throws LocalGovernmentNotFoundException;
     void deleteLocalGovernmentById(Long id) throws LocalGovernmentNotFoundException;

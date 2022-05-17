@@ -5,6 +5,7 @@ import com.farmmart.data.model.category.CategoryNotFoundException;
 import com.farmmart.data.repository.category.CategoryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,8 +43,8 @@ public class CategoryServiceImp implements CategoryService{
     }
 
     @Override
-    public List<Category> findAllCategories() {
-        return categoryRepository.findAll();
+    public List<Category> findAllCategories(Integer limit) {
+        return categoryRepository.findAll(PageRequest.of(0, limit)).toList();
     }
 
     @Override

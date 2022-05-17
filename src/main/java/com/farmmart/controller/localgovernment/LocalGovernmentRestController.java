@@ -62,7 +62,7 @@ public class LocalGovernmentRestController {
     @GetMapping("/findAllLocalGovernments")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<List<LocalGovernmentDto>> getAllLocalGovernment() {
-        return ResponseEntity.ok().body(localGovernmentService.findAllLocalGovernment()
+        return ResponseEntity.ok().body(localGovernmentService.findAllLocalGovernment(10)
                 .stream()
                 .map(this::convertLocalGovernmentToDto)
                 .collect(Collectors.toList()));

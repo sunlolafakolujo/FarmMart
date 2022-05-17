@@ -11,6 +11,7 @@ import com.farmmart.data.repository.service.ServiceRepository;
 import com.farmmart.data.repository.vendor.VendorRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -57,8 +58,8 @@ public class ServiceImpl implements ServiceService{
     }
 
     @Override
-    public List<Service> findAllServices() {
-        return serviceRepository.findAll();
+    public List<Service> findAllServices(Integer limit) {
+        return serviceRepository.findAll(PageRequest.of(0, limit)).toList();
     }
 
     @Override

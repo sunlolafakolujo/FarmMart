@@ -61,7 +61,7 @@ public class CategoryRestController {
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTANT_ADMIN')")
     public ResponseEntity<List<CategoryDto>> getAllCategory(){
 
-        return ResponseEntity.ok().body(categoryServiceImp.findAllCategories()
+        return ResponseEntity.ok().body(categoryServiceImp.findAllCategories(10)
                 .stream()
                 .map(this::convertCategoryToDto)
                 .collect(Collectors.toList()));

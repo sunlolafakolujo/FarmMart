@@ -20,6 +20,8 @@ public class EmployeeDto {
     @JsonIgnore
     private Long id;
 
+    private String employeeCode;
+
     private String firstName;
 
     private String lastName;

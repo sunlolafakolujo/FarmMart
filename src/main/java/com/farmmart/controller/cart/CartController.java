@@ -55,8 +55,6 @@ public class CartController {
 
         AppUser appUser=appUserDetailService.findUserByUsername(username);
 
-//        CartDto cartDto= cartService.listCartItems(appUser);
-
         CartDto cartDto= cartService.listCartItems(appUser,username);
 
         return ResponseEntity.ok().body(cartDto);

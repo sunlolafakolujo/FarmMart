@@ -151,7 +151,7 @@ class AppUserServiceImplTest {
 
         Mockito.when(appUserRepository.findAll()).thenReturn(appUsers);
 
-        appUserService.findAllUsers();
+        appUserService.findAllUsers(10);
 
         Mockito.verify(appUserRepository,Mockito.times(1)).findAll();
     }

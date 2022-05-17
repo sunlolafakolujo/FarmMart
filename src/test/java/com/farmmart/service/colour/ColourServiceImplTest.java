@@ -81,7 +81,7 @@ class ColourServiceImplTest {
 
         Mockito.when(colourRepository.findAll()).thenReturn(colours);
 
-        colourService.findAllColours();
+        colourService.findAllColours(10);
 
         Mockito.verify(colourRepository, Mockito.times(1)).findAll();
     }

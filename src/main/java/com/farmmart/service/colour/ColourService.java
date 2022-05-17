@@ -10,7 +10,7 @@ public interface ColourService {
     Colour saveColour(Colour colour) throws ColourNotFoundException;
     Colour findColourById(Long id) throws ColourNotFoundException;
     Colour findColourByName(String name) throws ColourNotFoundException;
-    List<Colour> findAllColours();
+    List<Colour> findAllColours(Integer limit);
     Colour updateColour(Colour colour, Long id) throws ColourNotFoundException;
     void deleteColourById(Long id) throws ColourNotFoundException;
     void deleteAllColours();

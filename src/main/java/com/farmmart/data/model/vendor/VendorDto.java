@@ -18,6 +18,8 @@ public class VendorDto {
     @JsonIgnore
     private Long id;
 
+    private String vendorCode;
+
     private BusinessEntity businessEntity;
 
     private String name;

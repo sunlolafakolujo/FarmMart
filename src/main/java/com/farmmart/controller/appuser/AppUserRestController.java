@@ -118,7 +118,7 @@ public class AppUserRestController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<List<AppUserDto>> getAllusers(){
 
-        return ResponseEntity.ok().body(appUserService.findAllUsers()
+        return ResponseEntity.ok().body(appUserService.findAllUsers(10)
                 .stream()
                 .map(this::convertAppUserToDto)
                 .collect(Collectors.toList()));

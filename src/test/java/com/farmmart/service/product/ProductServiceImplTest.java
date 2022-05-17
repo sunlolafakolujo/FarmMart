@@ -228,7 +228,7 @@ class ProductServiceImplTest {
 
         Mockito.when(productRepository.findAll()).thenReturn(products);
 
-        productService.findAllProduct();
+        productService.findAllProduct(10);
 
         Mockito.verify(productRepository, Mockito.times(1)).findAll();
     }

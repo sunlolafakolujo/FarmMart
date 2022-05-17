@@ -2,7 +2,6 @@ package com.farmmart.service.vendor;
 
 import com.farmmart.data.model.appuser.AppUser;
 import com.farmmart.data.model.staticdata.BusinessEntity;
-import com.farmmart.data.model.staticdata.Status;
 import com.farmmart.data.model.vendor.Vendor;
 import com.farmmart.data.model.vendor.VendorNotFoundException;
 import com.farmmart.data.repository.appuser.AppUserRepository;
@@ -18,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
@@ -114,7 +113,7 @@ class VendorServiceImplTest {
 
         Mockito.when(vendorRepository.findAll()).thenReturn(vendors);
 
-        vendorService.findAllVendors();
+        vendorService.findAllVendors(10);
 
         Mockito.verify(vendorRepository,Mockito.times(1)).findAll();
     }

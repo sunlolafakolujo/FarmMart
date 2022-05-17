@@ -113,7 +113,7 @@ public class CustomerRestController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<List<CustomerDto>> getAllCustomers(){
 
-        return ResponseEntity.ok().body(customerService.findAllCustomers()
+        return ResponseEntity.ok().body(customerService.findAllCustomers(10)
                 .stream()
                 .map(this::convertCustomerToDto)
                 .collect(Collectors.toList()));
@@ -164,6 +164,7 @@ public class CustomerRestController {
         CustomerDto customerDto=new CustomerDto();
 
         customerDto.setId(customer.getId());
+        customerDto.setCustomerCode(customer.getCustomerCode());
         customerDto.setFirstName(customer.getFirstName());
         customerDto.setLastName(customer.getLastName());
         customerDto.setGender(customer.getGender());

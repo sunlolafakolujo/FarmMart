@@ -93,7 +93,7 @@ public class VendorRestController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<List<VendorDto>> getAllVendors(){
 
-        return ResponseEntity.ok().body(vendorService.findAllVendors()
+        return ResponseEntity.ok().body(vendorService.findAllVendors(10)
                 .stream()
                 .map(this::convertVendorToDto)
                 .collect(Collectors.toList()));
@@ -149,6 +149,7 @@ public class VendorRestController {
         VendorDto vendorDto=new VendorDto();
 
        vendorDto.setId(vendor.getId());
+       vendorDto.setVendorCode(vendor.getVendorCode());
        vendorDto.setBusinessEntity(vendor.getBusinessEntity());
        vendorDto.setName(vendor.getName());
        vendorDto.setRcNumber(vendor.getRcNumber());

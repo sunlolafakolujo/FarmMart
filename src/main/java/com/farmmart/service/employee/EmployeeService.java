@@ -14,7 +14,7 @@ public interface EmployeeService {
     List<Employee> findEmployeeByLastName(String lastName) throws EmployeeNotFoundException;
     List<Employee> findEmployeeByGender(Gender gender) throws EmployeeNotFoundException;
     Employee findEmployeeByUsername(AppUser appUser,String username);
-    List<Employee> findAllEmployee();
+    List<Employee> findAllEmployee(Integer limit);
     Employee updateEmployeeDetails(Employee employee,Long id) throws EmployeeNotFoundException;
     void deleteEmployeeById(Long id) throws EmployeeNotFoundException;
     void deleteAllEmployee();

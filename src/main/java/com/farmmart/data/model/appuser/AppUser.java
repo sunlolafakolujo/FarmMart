@@ -28,16 +28,16 @@ public class AppUser extends BaseAudit {
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String username;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String phone;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     @Email(message = "Email is already taken")
     private String email;
 

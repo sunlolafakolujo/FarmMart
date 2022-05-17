@@ -81,7 +81,7 @@ class CategoryServiceImpTest {
 
         Mockito.when(categoryRepository.findAll()).thenReturn(categoryList);
 
-        categoryService.findAllCategories();
+        categoryService.findAllCategories(10);
 
         Mockito.verify(categoryRepository, Mockito.times(1)).findAll();
     }

@@ -4,6 +4,7 @@ import com.farmmart.data.model.country.Country;
 import com.farmmart.data.model.country.CountryNotFoundException;
 import com.farmmart.data.repository.country.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,8 +48,8 @@ public class CountryServiceImpl implements CountryService{
     }
 
     @Override
-    public List<Country> findAllCountries() {
-        return countryRepository.findAll();
+    public List<Country> findAllCountries(Integer limit) {
+        return countryRepository.findAll(PageRequest.of(0, limit)).toList();
     }
 
 //    @Override

@@ -11,7 +11,7 @@ public interface OrderService {
     CustomerOrder placeOrder(CustomerOrder customerOrder, String username);
     CustomerOrder findOrderById(Long id);
     List<CustomerOrder> findOrderByUser(AppUser appUser, String username);
-    List<CustomerOrder> findAllOrder();//page it.
+    List<CustomerOrder> findAllOrder(Integer limit);//page it.
     void deleteOrderById(Long id) throws OrderNotFoundException;
     void deleteOrderByUser(AppUser appUser,String username);
     void deleteAllOrder();

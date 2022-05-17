@@ -24,7 +24,7 @@ public interface AppUserService {
 
     List<AppUser> findUserByType(UserType userType);
 
-    List<AppUser> findAllUsers();//TODO pagination
+    List<AppUser> findAllUsers(Integer limit);//TODO pagination
 
     AppUser updateUser(AppUser appUser,Long id) throws AppUserNotFoundException;
 

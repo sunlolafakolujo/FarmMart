@@ -8,10 +8,11 @@ import com.farmmart.data.repository.appuser.AppUserRepository;
 import com.farmmart.data.repository.userrole.UserRoleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -57,15 +58,16 @@ public class AppUserDetailService implements AppUserService, UserDetailsService 
 
     @Override
     public AppUser saveAppUser(AppUser appUser) throws AppUserNotFoundException {
+
         AppUser username= appUserRepository.findByUserName(appUser.getUsername());
 
         AppUser email= appUserRepository.findByEmail(appUser.getEmail());
 
         AppUser phoneNumber= appUserRepository.findByPhone(appUser.getPhone());
 
-        if (Objects.nonNull(username)||Objects.nonNull(email)||Objects.nonNull(phoneNumber)){
+        if (username!=null ||email!=null ||phoneNumber!=null){
             throw new AppUserNotFoundException("User already exist");
-        }else if (!validatePhoneNumber(appUser)){
+        }if (!validatePhoneNumber(appUser)){
                 throw new AppUserNotFoundException("Incorrect Phone Number");
         }
 
@@ -144,9 +146,9 @@ public class AppUserDetailService implements AppUserService, UserDetailsService 
     }
 
     @Override
-    public List<AppUser> findAllUsers() {
+    public List<AppUser> findAllUsers(Integer limit) {
 
-        return appUserRepository.findAll();
+        return appUserRepository.findAll(PageRequest.of(0, 10)).toList();
     }
 
     @Override

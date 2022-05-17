@@ -18,6 +18,8 @@ public class CustomerDto {
     @JsonIgnore
     private Long id;
 
+    private String customerCode;
+
     private String firstName;
 
     private String lastName;

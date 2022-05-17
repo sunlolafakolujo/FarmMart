@@ -7,12 +7,15 @@ import com.farmmart.data.model.staticdata.Gender;
 import com.farmmart.data.repository.appuser.AppUserRepository;
 import com.farmmart.data.repository.employee.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -24,8 +27,15 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Autowired
     private AppUserRepository appUserRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
-    public Employee saveEmployee(Employee employee) {
+    public Employee saveEmployee(Employee employee) throws EmployeeNotFoundException {
+
+        employee.setEmployeeCode("EMP".concat(UUID.randomUUID().toString().replace("-", "").toUpperCase()));
+
+        employee.getAppUser().setPassword(passwordEncoder.encode(employee.getAppUser().getPassword()));
 
         return employeeRepository.save(employee);
     }
@@ -70,9 +80,9 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public List<Employee> findAllEmployee() {
+    public List<Employee> findAllEmployee(Integer limit) {
 
-        return employeeRepository.findAll();
+        return employeeRepository.findAll(PageRequest.of(0,limit)).toList();
     }
 
     @Override

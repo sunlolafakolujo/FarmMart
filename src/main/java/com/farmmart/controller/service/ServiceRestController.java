@@ -67,7 +67,7 @@ public class ServiceRestController {
     @GetMapping("/findAllServices")
     public ResponseEntity<List<ServiceDto>> getAllServices(){
 
-        return ResponseEntity.ok().body(serviceimpl.findAllServices()
+        return ResponseEntity.ok().body(serviceimpl.findAllServices(10)
                 .stream()
                 .map(this::convertServiceToDto)
                 .collect(Collectors.toList()));

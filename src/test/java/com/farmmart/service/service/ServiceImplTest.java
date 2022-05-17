@@ -103,7 +103,7 @@ class ServiceImplTest {
 
         Mockito.when(serviceRepository.findAll()).thenReturn(services);
 
-        serviceService.findAllServices();
+        serviceService.findAllServices(10);
 
         Mockito.verify(serviceRepository, Mockito.times(1)).findAll();
     }

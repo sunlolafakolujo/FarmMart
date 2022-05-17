@@ -5,8 +5,6 @@ import com.farmmart.data.model.localgovernment.LocalGovernmentNotFoundException;
 import com.farmmart.data.model.state.States;
 import com.farmmart.data.repository.localgovernment.LocalGovernmentRepository;
 import com.farmmart.data.repository.state.StateRepository;
-import com.farmmart.service.state.StateService;
-import com.farmmart.service.state.StateServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
@@ -89,7 +87,7 @@ class LocalGovernmentServiceImplTest {
 
         Mockito.when(localGovernmentRepository.findAll()).thenReturn(localGovernmentList);
 
-        localGovernmentService.findAllLocalGovernment();
+        localGovernmentService.findAllLocalGovernment(10);
 
         Mockito.verify(localGovernmentRepository,Mockito.times(1)).findAll();
     }

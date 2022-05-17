@@ -131,7 +131,7 @@ class CustomerServiceImplTest {
 
         Mockito.when(customerRepository.findAll()).thenReturn(customers);
 
-        customerService.findAllCustomers();
+        customerService.findAllCustomers(10);
 
         Mockito.verify(customerRepository,Mockito.times(1)).findAll();
     }

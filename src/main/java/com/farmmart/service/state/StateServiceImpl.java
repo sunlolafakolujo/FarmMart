@@ -8,6 +8,7 @@ import com.farmmart.data.repository.country.CountryRepository;
 import com.farmmart.data.repository.state.StateRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,8 +57,8 @@ public class StateServiceImpl implements StateService{
     }
 
     @Override
-    public List<States> findAllStates() {
-        return stateRepository.findAll();
+    public List<States> findAllStates(Integer limit) {
+        return stateRepository.findAll(PageRequest.of(0, limit)).toList();
     }
 
     @Override
