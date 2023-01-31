@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(path = "api/farmmart")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserRoleController {
     private final UserRoleService userRoleService;
     private final ModelMapper modelMapper;

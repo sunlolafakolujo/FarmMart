@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(path = "api/farmmart")
 @AllArgsConstructor
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class JobDesignationController {
     private final JobDesignationService jobDesignationService;
     private final ModelMapper modelMapper;

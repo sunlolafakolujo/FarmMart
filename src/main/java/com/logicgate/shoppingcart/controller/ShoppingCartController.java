@@ -25,7 +25,7 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @RequestMapping(path = "api/farmmart")
 @AllArgsConstructor
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class ShoppingCartController {
     private final ShoppingCartService shoppingCartService;
     private final ModelMapper modelMapper;

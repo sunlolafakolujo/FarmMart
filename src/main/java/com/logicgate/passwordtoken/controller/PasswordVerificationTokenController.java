@@ -19,7 +19,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping(path = "api/farmmart")
 @AllArgsConstructor
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class PasswordVerificationTokenController {
     private final PasswordVerificationTokenService passwordVerificationTokenService;
     private final ApplicationEventPublisher publisher;

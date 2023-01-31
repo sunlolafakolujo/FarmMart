@@ -22,7 +22,7 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @RequestMapping(path = "api/farmmart")
 @AllArgsConstructor
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class CategoryController {
     private final CategoryService categoryService;
     private final ModelMapper modelMapper;
