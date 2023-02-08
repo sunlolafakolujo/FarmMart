@@ -1,16 +1,18 @@
 package com.logicgate.configuration.security.jwtrequestfilter;
 
 
-import com.logicgate.configuration.appuserdetailservice.AppUserDetailService;
+import com.logicgate.configuration.security.appuserdetailservice.AppUserDetailService;
 import com.logicgate.configuration.security.jwtutil.JwtUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -18,7 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+//@Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     public  static String CURRENT_USER="";
@@ -65,14 +67,18 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             UserDetails userDetails = appUserDetailService.loadUserByUsername(username);
 
             if (jwtUtil.validateToken(authToken, userDetails)) {
-                UsernamePasswordAuthenticationToken authentication = jwtUtil.getAuthenticationToken(authToken,
-                        SecurityContextHolder.getContext().getAuthentication(), userDetails);
-
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken=
+                        new UsernamePasswordAuthenticationToken(userDetails, null,
+                                userDetails.getAuthorities());
+                usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+//                UsernamePasswordAuthenticationToken authentication = jwtUtil.getAuthenticationToken(authToken,
+//                        SecurityContextHolder.getContext().getAuthentication(), userDetails);
+//
+//                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                 logger.info("authenticated user " + username + ", setting security context");
 
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }
 

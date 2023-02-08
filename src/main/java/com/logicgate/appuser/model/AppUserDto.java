@@ -7,6 +7,8 @@ import lombok.*;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,5 +27,5 @@ public class AppUserDto {
     private String postZipCode;
     private String stateProvince;
     private String country;
-    private Collection<UserRole> userRoles=new HashSet<>();
+    private List<UserRole> userRoles;
 }

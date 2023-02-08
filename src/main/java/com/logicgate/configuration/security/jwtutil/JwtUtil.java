@@ -10,9 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -31,11 +29,11 @@ public class JwtUtil implements Serializable {
         return extractClaim(token, Claims::getSubject);
     }
 
-    public Date extractExpiration(String token){
+    private Date extractExpiration(String token){
         return extractClaim(token, Claims::getExpiration);
     }
 
-    public <T> T extractClaim(String token, Function<Claims, T> clamsResolver){
+    private <T> T extractClaim(String token, Function<Claims, T> clamsResolver){
         final Claims claims=extractAllClaims(token);
         return clamsResolver.apply(claims);
     }
@@ -52,15 +50,23 @@ public class JwtUtil implements Serializable {
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
-
         return Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
-                .setIssuer("LogicGate")
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + TOKEN_VALIDITY*1000))
                 .signWith(SignatureAlgorithm.HS256, SIGNING_KEY)
                 .compact();
+//        Map<String, Object> claims=new HashMap<>();
+//
+//        return Jwts.builder()
+//                .setSubject(userDetails.getUsername())
+//                .setClaims(claims)
+//                .setIssuer("LogicGate")
+//                .setIssuedAt(new Date(System.currentTimeMillis()))
+//                .setExpiration(new Date(System.currentTimeMillis() + TOKEN_VALIDITY*1000))
+//                .signWith(SignatureAlgorithm.HS256, SIGNING_KEY)
+//                .compact();
 
     }
 
@@ -74,16 +80,12 @@ public class JwtUtil implements Serializable {
                                                                final UserDetails userDetails) {
 
         final JwtParser jwtParser = Jwts.parser().setSigningKey(SIGNING_KEY);
-
         final Jws<Claims> claimsJws = jwtParser.parseClaimsJws(token);
-
         final Claims claims = claimsJws.getBody();
-
         final Collection<? extends GrantedAuthority> authorities =
                 Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
-
         return new UsernamePasswordAuthenticationToken(userDetails, "", authorities);
     }
 }

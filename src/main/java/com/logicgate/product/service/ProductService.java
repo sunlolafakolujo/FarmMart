@@ -21,5 +21,6 @@ public interface ProductService {
     List<Product> fetchProductDetails(Boolean isSingleProductCheckout, Long productId) throws ProductNotFoundException, AppUserNotFoundException;
     Product updateProduct(Product product, Long id) throws ProductNotFoundException;
     void deleteProduct(Long id) throws ProductNotFoundException;
+    void deleteProductByCode(String productCode) throws ProductNotFoundException, AppUserNotFoundException;
     void deleteAllProducts();
 }

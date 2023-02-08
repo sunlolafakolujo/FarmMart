@@ -4,6 +4,7 @@ package com.logicgate.seller.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.logicgate.appuser.model.AppUser;
 import com.logicgate.baseaudit.BaseAudit;
+import com.logicgate.farmservices.model.FarmService;
 import com.logicgate.image.model.Picture;
 import com.logicgate.product.model.Product;
 import com.logicgate.staticdata.BusinessEntityType;
@@ -57,4 +58,9 @@ public class Seller extends BaseAudit {
     @ToString.Exclude
     @OneToMany(mappedBy = "seller")
     private List<Product> products;
+
+    @JsonIgnore
+    @ToString.Exclude
+    @OneToMany(mappedBy = "seller")
+    private List<FarmService> farmServices;
 }

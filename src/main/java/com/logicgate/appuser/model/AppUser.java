@@ -14,8 +14,7 @@ import com.logicgate.userrole.model.UserRole;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -53,7 +52,7 @@ public class AppUser extends BaseAudit {
     @JoinTable(name = "app_user_roles",
     joinColumns = @JoinColumn(name = "app_user_id", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "user_role_id", referencedColumnName = "id"))
-    private Collection<UserRole> userRoles=new HashSet<>();
+    private List<UserRole> userRoles=new ArrayList<>();
 
     @JsonIgnore
     @ToString.Exclude

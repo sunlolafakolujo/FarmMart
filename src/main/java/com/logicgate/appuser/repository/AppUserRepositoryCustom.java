@@ -12,9 +12,6 @@ public interface AppUserRepositoryCustom {
     @Query("FROM AppUser a WHERE a.username=?1 OR a.email=?1 OR a.mobile=?1")
     Optional<AppUser> findUserByUsernameOrEmailOrMobile(String username, String email, String mobile);
 
-    @Query("FROM AppUser a WHERE a.username=?1")
-    Optional<AppUser> findByUsername(String username);
-
     @Query("FROM AppUser a WHERE a.userType=?1")
     List<AppUser> findByUserType(UserType userType);
 }

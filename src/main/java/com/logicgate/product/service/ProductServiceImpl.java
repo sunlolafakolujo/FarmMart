@@ -159,6 +159,19 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
+    public void deleteProductByCode(String productCode) throws ProductNotFoundException, AppUserNotFoundException {
+        String searchKey=JwtRequestFilter.CURRENT_USER;
+        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobile(searchKey,searchKey,searchKey)
+                .orElseThrow(()->new AppUserNotFoundException("User "+searchKey+" Not Found"));
+        Seller seller=sellerRepository.findSellerByUsernameOrEmailOMobile(appUser);
+        if (productCode!=null && seller!=null) {
+            productRepository.deleteProductByCode(productCode,seller);
+        }else {
+            throw new ProductNotFoundException("Product code Not Found");
+        }
+    }
+
+    @Override
     public void deleteAllProducts() {
         productRepository.deleteAll();
     }

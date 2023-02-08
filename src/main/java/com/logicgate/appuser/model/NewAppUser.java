@@ -8,6 +8,8 @@ import lombok.*;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,5 +25,5 @@ public class NewAppUser {
     private String email;
     private String mobile;
     private Contact contact;
-    private Collection<UserRole> userRoles=new HashSet<>();
+    private List<UserRole> userRoles;
 }

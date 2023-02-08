@@ -6,6 +6,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,5 +25,5 @@ public class UserRole extends BaseAudit {
     @JsonIgnore
     @ToString.Exclude
     @ManyToMany(mappedBy = "userRoles", cascade = CascadeType.ALL)
-    private Collection<AppUser> appUsers;
+    private List<AppUser> appUsers;
 }

@@ -2,11 +2,13 @@ package com.logicgate.configuration.security.webconfig;
 
 
 
-import com.logicgate.configuration.appuserdetailservice.AppUserDetailService;
+import com.logicgate.configuration.security.appuserdetailservice.AppUserDetailService;
 import com.logicgate.configuration.security.authentrypoint.JwtAuthenticationEntryPoint;
 import com.logicgate.configuration.security.jwtrequestfilter.JwtRequestFilter;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,17 +17,20 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.servlet.function.ServerRequest;
 
+@Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@AllArgsConstructor
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
-    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    private final AppUserDetailService appUserDetailService;
-    private final PasswordEncoder passwordEncode;
+    @Autowired
+    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    @Autowired
+    private AppUserDetailService appUserDetailService;
+    @Autowired
+    private PasswordEncoder passwordEncode;
     private static final String[] WHITE_LIST_URLS={
             "/api/farmmart/addRole/**", "/api/farmmart/addSeller/**",
             "/api/farmmart/addBuyer/**", "/api/farmmart/findProduct/**", "/api/farmmart/findByProductWithinPriceRange/**",
@@ -44,11 +49,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors();
-        http.csrf().disable()
+//        http.cors().disable();
+        http.cors().and().csrf().disable()
                 .authorizeRequests()
                 .mvcMatchers(WHITE_LIST_URLS).permitAll()
-                .mvcMatchers(HttpHeaders.ALLOW).permitAll()
+//                .mvcMatchers(HttpHeaders.ALLOW).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)

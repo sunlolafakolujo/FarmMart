@@ -1,6 +1,10 @@
 package com.logicgate.appuser.controller;
 
 
+import com.logicgate.appuser.exception.AppUserNotFoundException;
+import com.logicgate.appuser.model.AppUser;
+import com.logicgate.appuser.service.AppUserService;
+import com.logicgate.configuration.security.appuserdetailservice.AppUserDetailService;
 import com.logicgate.configuration.security.auth.AuthRequest;
 import com.logicgate.configuration.security.auth.AuthResponse;
 import com.logicgate.configuration.security.jwtutil.JwtUtil;
@@ -17,14 +21,17 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @CrossOrigin
 public class LogInController {
-    private final JwtUtil jwtUtil;
+    private final AppUserService appUserService;
     private final AuthenticationManager authenticationManager;
+    private final JwtUtil jwtUtil;
 
+//    @PostMapping({"/logIn"})
+//    public AuthResponse createJwtToken(@RequestBody AuthRequest authRequest) throws Exception {
+//        return appUserDetailService.createJwtToken(authRequest);
+//    }
 
     @PostMapping("/logIn")
-//    @PreAuthorize("hasAnyRole('SELLER','EMPLOYEE','BUYER')")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthRequest authRequest) {
-
+    public ResponseEntity<?> signIn(@RequestBody AuthRequest authRequest) throws AppUserNotFoundException {
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         authRequest.getUsernameOrEmailOrMobile(),
@@ -33,7 +40,8 @@ public class LogInController {
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         final String token = jwtUtil.generateToken(authentication);
-        final String username= jwtUtil.extractUsername(token);
-        return ResponseEntity.ok(new AuthResponse(username,token));
+        AppUser appUser=appUserService.fetchByUsernameOrEmailOrMobile(authRequest.getUsernameOrEmailOrMobile());
+        return ResponseEntity.ok(new AuthResponse(appUser.getUsername(), appUser.getUserRoles(),token));
+
     }
 }

@@ -5,6 +5,7 @@ import com.logicgate.category.model.Category;
 import com.logicgate.product.model.Product;
 import com.logicgate.seller.model.Seller;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.math.BigDecimal;
@@ -25,9 +26,10 @@ public interface ProductRepositoryCustom {
     @Query("FROM Product p WHERE p.price BETWEEN  ?1 And ?2")
     List<Product> findProductByPriceWithinRange(BigDecimal minPrice, BigDecimal maxPrice, Pageable pageable);
 
-//    @Query("FROM Product p WHERE p.category=?1")
-//    List<Product> findProductByCategory(Category category);
-
     @Query("FROM Product p WHERE p.seller=?1")
     List<Product> findProductBySeller(Seller seller,Pageable pageable);
+
+    @Modifying
+    @Query("DELETE Product p WHERE p.productCode=?1 AND p.seller=?2")
+    void deleteProductByCode(String productCode,Seller seller);
 }
