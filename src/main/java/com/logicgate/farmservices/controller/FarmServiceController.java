@@ -124,7 +124,7 @@ public class FarmServiceController {
         farmServiceDto.setServiceCode(farmService.getServiceCode());
         farmServiceDto.setServiceName(farmService.getServiceName());
         farmServiceDto.setServiceDescription(farmService.getServiceDescription());
-        farmServiceDto.setCategories(farmService.getCategories());
+//        farmServiceDto.setCategories(farmService.getCategories());
         farmServiceDto.setSellerName(farmService.getSeller().getSellerName());
         farmServiceDto.setSellerMobile(farmService.getSeller().getAppUser().getMobile());
         farmServiceDto.setHouseNumber(farmService.getSeller().getAppUser().getContact().getHouseNumber());
@@ -133,8 +133,6 @@ public class FarmServiceController {
         farmServiceDto.setLandmark(farmService.getSeller().getAppUser().getContact().getLandmark());
         farmServiceDto.setStateProvince(farmService.getSeller().getAppUser().getContact().getStateProvince());
         farmServiceDto.setCountry(farmService.getSeller().getAppUser().getContact().getCountry());
-
-
         return  farmServiceDto;
     }
 }

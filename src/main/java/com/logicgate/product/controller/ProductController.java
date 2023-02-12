@@ -151,9 +151,9 @@ public class ProductController {
 
     private ProductDto convertProductToDto(Product product){
         ProductDto productDto=new ProductDto();
-        productDto.setId(product.getId());
+//        productDto.setId(product.getId());
         productDto.setProductCode(product.getProductCode());
-        productDto.setProductType(product.getProductType());
+//        productDto.setProductType(product.getProductType());
         productDto.setProductName(product.getProductName());
         productDto.setProductDescription(product.getProductDescription());
         productDto.setManufacturerWebSite(product.getManufacturerWebSite());
@@ -164,10 +164,9 @@ public class ProductController {
         productDto.setUnitOfMeasure(product.getUnitOfMeasure());
         productDto.setProductSKU(product.getProductSKU());
         productDto.setBrand(product.getBrand());
-        productDto.setCategories(product.getCategories());
+//        productDto.setCategories(product.getCategories());
         productDto.setProductCondition(product.getProductCondition());
         productDto.setSpecification(product.getSpecification());
-        productDto.setCategories(product.getCategories());
         productDto.setPictures(product.getPictures());
         productDto.setSellerName(product.getSeller().getSellerName());
         return productDto;

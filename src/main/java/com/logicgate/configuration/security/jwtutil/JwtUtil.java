@@ -57,17 +57,6 @@ public class JwtUtil implements Serializable {
                 .setExpiration(new Date(System.currentTimeMillis() + TOKEN_VALIDITY*1000))
                 .signWith(SignatureAlgorithm.HS256, SIGNING_KEY)
                 .compact();
-//        Map<String, Object> claims=new HashMap<>();
-//
-//        return Jwts.builder()
-//                .setSubject(userDetails.getUsername())
-//                .setClaims(claims)
-//                .setIssuer("LogicGate")
-//                .setIssuedAt(new Date(System.currentTimeMillis()))
-//                .setExpiration(new Date(System.currentTimeMillis() + TOKEN_VALIDITY*1000))
-//                .signWith(SignatureAlgorithm.HS256, SIGNING_KEY)
-//                .compact();
-
     }
 
     public Boolean validateToken(String token, UserDetails userDetails){
