@@ -2,6 +2,7 @@ package com.logicgate.product.controller;
 
 
 import com.logicgate.appuser.exception.AppUserNotFoundException;
+import com.logicgate.category.model.Category;
 import com.logicgate.image.model.Picture;
 import com.logicgate.product.exception.ProductNotFoundException;
 import com.logicgate.product.model.NewProduct;
@@ -164,7 +165,11 @@ public class ProductController {
         productDto.setUnitOfMeasure(product.getUnitOfMeasure());
         productDto.setProductSKU(product.getProductSKU());
         productDto.setBrand(product.getBrand());
-//        productDto.setCategories(product.getCategories());
+        productDto.setCategories(product.getCategories().stream().map(c ->{
+            Category category=new Category();
+            category.setCategoryName(c.getCategoryName());
+            return category;
+        }).collect(Collectors.toList()));
         productDto.setProductCondition(product.getProductCondition());
         productDto.setSpecification(product.getSpecification());
         productDto.setPictures(product.getPictures());
