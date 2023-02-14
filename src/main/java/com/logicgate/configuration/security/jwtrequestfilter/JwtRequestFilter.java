@@ -23,7 +23,7 @@ import java.io.IOException;
 //@Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    public  static String CURRENT_USER="";
+    public static String CURRENT_USER="";
 
     @Value("${jwt.header.string}")
     public String HEADER_STRING;
