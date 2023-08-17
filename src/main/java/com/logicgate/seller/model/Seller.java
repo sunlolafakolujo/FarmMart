@@ -3,7 +3,7 @@ package com.logicgate.seller.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.logicgate.appuser.model.AppUser;
-import com.logicgate.baseaudit.BaseAudit;
+import com.logicgate.baseaudit.BaseObject;
 import com.logicgate.farmservices.model.FarmService;
 import com.logicgate.image.model.Picture;
 import com.logicgate.product.model.Product;
@@ -20,7 +20,7 @@ import java.util.List;
 @Setter
 @ToString
 @Entity
-public class Seller extends BaseAudit {
+public class Seller extends BaseObject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

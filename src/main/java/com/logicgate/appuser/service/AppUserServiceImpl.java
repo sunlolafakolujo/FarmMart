@@ -34,7 +34,7 @@ public class AppUserServiceImpl implements AppUserService{
     public AppUser addAppUser(AppUser appUser) throws AppUserNotFoundException {
         appUser.setUserCode("USER".concat(String.valueOf(new Random().nextInt(100000000))));
         Optional<AppUser> user=appUserRepository
-                .findUserByUsernameOrEmailOrMobile(appUser.getUsername(),appUser.getEmail(),appUser.getMobile());
+                .findUserByUsernameOrEmailOrMobileIgnoreCase(appUser.getUsername(),appUser.getEmail(),appUser.getMobile());
         if (user.isPresent()){
             throw new AppUserNotFoundException("User already exist");
         }
@@ -46,7 +46,7 @@ public class AppUserServiceImpl implements AppUserService{
     public void addRoleToUser(String searchKey, String roleName) throws UserRoleNotFoundException, AppUserNotFoundException {
         UserRole userRole=userRoleRepository.findByUserRoleName(roleName)
                 .orElseThrow(()->new UserRoleNotFoundException("Role Not found"));
-        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobile(searchKey,searchKey,searchKey)
+        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobileIgnoreCase(searchKey,searchKey,searchKey)
                 .orElseThrow(()->new AppUserNotFoundException("User Not Found"));
         appUser.getUserRoles().add(userRole);
         appUserRepository.save(appUser);
@@ -59,7 +59,7 @@ public class AppUserServiceImpl implements AppUserService{
 
     @Override
     public AppUser fetchByUsernameOrEmailOrMobile(String searchKey) throws AppUserNotFoundException {
-        return appUserRepository.findUserByUsernameOrEmailOrMobile(searchKey,searchKey,searchKey)
+        return appUserRepository.findUserByUsernameOrEmailOrMobileIgnoreCase(searchKey,searchKey,searchKey)
                 .orElseThrow(()->new AppUserNotFoundException("User "+searchKey+" Not Found"));
     }
 

@@ -50,7 +50,7 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public Product addProduct(Product product) throws AppUserNotFoundException {
         String searchKey= JwtRequestFilter.CURRENT_USER;
-        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobile(searchKey,searchKey,searchKey)
+        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobileIgnoreCase(searchKey,searchKey,searchKey)
                 .orElseThrow(()->new AppUserNotFoundException("User "+searchKey+"Not Found"));
         Seller seller=sellerRepository.findSellerByUsernameOrEmailOMobile(appUser);
         product.setSeller(seller);
@@ -109,7 +109,7 @@ public class ProductServiceImpl implements ProductService{
     public List<Product> fetchProductBySeller(Integer pageNumber) throws SellerNotFoundException, AppUserNotFoundException {
         Pageable pageable=PageRequest.of(pageNumber,10);
         String searchKey=JwtRequestFilter.CURRENT_USER;
-        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobile(searchKey,searchKey,searchKey)
+        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobileIgnoreCase(searchKey,searchKey,searchKey)
                 .orElseThrow(()->new AppUserNotFoundException("User "+searchKey+" Not Found"));
         Seller seller=sellerRepository.findSellerByUsernameOrEmailOMobile(appUser);
         return productRepository.findProductBySeller(seller,pageable);
@@ -125,7 +125,7 @@ public class ProductServiceImpl implements ProductService{
             return products;
         }else {
             String searchKey= JwtRequestFilter.CURRENT_USER;
-            AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobile(searchKey,searchKey,searchKey)
+            AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobileIgnoreCase(searchKey,searchKey,searchKey)
                     .orElseThrow(()->new AppUserNotFoundException("User "+searchKey+" Not Found"));
             Buyer buyer=buyerRepository.findBuyerByUsernameOrEmailOrPassword(appUser);
             List<ShoppingCart> shoppingCarts=shoppingCartRepository.findShoppingCartByBuyer(buyer);
@@ -161,7 +161,7 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public void deleteProductByCode(String productCode) throws ProductNotFoundException, AppUserNotFoundException {
         String searchKey=JwtRequestFilter.CURRENT_USER;
-        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobile(searchKey,searchKey,searchKey)
+        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobileIgnoreCase(searchKey,searchKey,searchKey)
                 .orElseThrow(()->new AppUserNotFoundException("User "+searchKey+" Not Found"));
         Seller seller=sellerRepository.findSellerByUsernameOrEmailOMobile(appUser);
         if (productCode!=null && seller!=null) {

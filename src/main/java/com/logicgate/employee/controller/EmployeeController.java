@@ -135,7 +135,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/findAllEmployeesOrByFirstNameOrLastNameOrOtherNames")
-    @PreAuthorize("hasRole('EMPLOYEE')")
+    @PreAuthorize("hasAnyRole('HRIS_ADMINISTRATOR','GM_HR', 'SYSTEM_ADMINISTRATOR','SOFTWARE_ENGINEER')")
     public ResponseEntity<List<EmployeeDto>> getEmployeesOrByFirstOrLastName(@RequestParam("pageNumber") Integer pageNumber,
                                                                              @RequestParam("searchKey") String searchKey){
         return new ResponseEntity<>(employeeService
@@ -146,7 +146,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/updateEmployee")
-    @PreAuthorize("hasRole('HRIS_ADMINISTRATOR')")
+    @PreAuthorize("hasRole('HRIS_ADMINISTRATOR','GM_HR', 'SYSTEM_ADMINISTRATOR','SOFTWARE_ENGINEER')")
     public ResponseEntity<UpdateEmployee> editEmployee(@RequestBody UpdateEmployee updateEmployee,
                                                        @RequestParam("id") Long id) throws EmployeeNotFoundException {
         Employee employee=modelMapper.map(updateEmployee,Employee.class);
@@ -156,14 +156,14 @@ public class EmployeeController {
     }
 
     @DeleteMapping("deleteEmployee")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('HRIS_ADMINISTRATOR','GM_HR', 'SYSTEM_ADMINISTRATOR','SOFTWARE_ENGINEER')")
     public ResponseEntity<?> deleteEmployeeById(@RequestParam("id") Long id) throws EmployeeNotFoundException {
         employeeService.deleteEmployee(id);
         return ResponseEntity.ok().body("Employee with ID "+id+" Is Deleted");
     }
 
     @DeleteMapping("deleteAllEmployee")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('HRIS_ADMINISTRATOR')")
     public ResponseEntity<?> deleteAllEmployees(){
         employeeService.deleteAllEmployees();
         return ResponseEntity.ok().body("Employees Deleted");
@@ -185,6 +185,7 @@ public class EmployeeController {
         employeeDto.setOtherNames(employee.getOtherNames());
         employeeDto.setDateOfBirth(employee.getDateOfBirth());
         employeeDto.setAge(employee.getAge());
+        employeeDto.setRetirementDate(employee.getRetirementDate());
         employeeDto.setGender(employee.getGender());
         employeeDto.setMaritalStatus(employee.getMaritalStatus());
         employeeDto.setStateOfOrigin(employee.getStateOfOrigin());

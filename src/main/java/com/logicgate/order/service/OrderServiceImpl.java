@@ -10,7 +10,6 @@ import com.logicgate.configuration.security.jwtrequestfilter.JwtRequestFilter;
 import com.logicgate.order.exception.OrderNotFoundException;
 import com.logicgate.order.model.Order;
 import com.logicgate.order.repository.OrderRepository;
-import com.logicgate.shoppingcart.model.ShoppingCart;
 import com.logicgate.shoppingcart.repository.ShoppingCartRepository;
 import com.logicgate.staticdata.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 
@@ -44,9 +43,10 @@ public class OrderServiceImpl implements OrderService{
 //        shoppingCarts.add(shoppingCart);
 //        order.setShoppingCarts(shoppingCarts);
         order.setOrderCode("ORDER".concat(String.valueOf(new Random().nextInt(100000000))));
-        order.setOrderDate(LocalDate.now());
+        order.setOrderDate(LocalDateTime.now());
         order.setDeliveryDate(order.getOrderDate().plusDays(10));
         order.setOrderStatus(OrderStatus.PLACED);
+//        order.setShoppingCarts(order.getShoppingCarts());
         return orderRepository.save(order);
     }
 
@@ -65,7 +65,7 @@ public class OrderServiceImpl implements OrderService{
     public List<Order> fetchBuyerOrders(Integer pageNumber) throws AppUserNotFoundException {
         Pageable pageable=PageRequest.of(pageNumber,10);
         String searchKey= JwtRequestFilter.CURRENT_USER;
-        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobile(searchKey,searchKey,searchKey)
+        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobileIgnoreCase(searchKey,searchKey,searchKey)
                 .orElseThrow(()->new AppUserNotFoundException("User "+searchKey+" Not Found"));
         Buyer buyer=buyerRepository.findBuyerByUsernameOrEmailOrPassword(appUser);
         return orderRepository.findOrderByBuyer(buyer);
@@ -80,7 +80,7 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public void cancelOrder() throws AppUserNotFoundException {
         String searchKey= JwtRequestFilter.CURRENT_USER;
-        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobile(searchKey,searchKey,searchKey)
+        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobileIgnoreCase(searchKey,searchKey,searchKey)
                 .orElseThrow(()->new AppUserNotFoundException("User "+searchKey+" Not Found"));
         Buyer buyer=buyerRepository.findBuyerByUsernameOrEmailOrPassword(appUser);
         Order buyerOrder=orderRepository.findOrderByBuyerEmailOrUsernameOrMobile(buyer);

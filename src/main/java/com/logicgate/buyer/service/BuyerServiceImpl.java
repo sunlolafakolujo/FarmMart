@@ -38,7 +38,7 @@ public class BuyerServiceImpl implements BuyerService{
 
     @Override
     public Buyer addBuyer(Buyer buyer) throws UserRoleNotFoundException, AppUserNotFoundException, BuyerNotFoundException {
-        Optional<AppUser> appUser=appUserRepository.findUserByUsernameOrEmailOrMobile(buyer.getAppUser().getUsername()
+        Optional<AppUser> appUser=appUserRepository.findUserByUsernameOrEmailOrMobileIgnoreCase(buyer.getAppUser().getUsername()
                 ,buyer.getAppUser().getEmail(),buyer.getAppUser().getMobile());
         if (appUser.isPresent()){
             throw new BuyerNotFoundException("Username Or Email Or Mobile already exist");
@@ -104,7 +104,7 @@ public class BuyerServiceImpl implements BuyerService{
     @Override
     public Long isBuyerPresent(Buyer buyer) throws AppUserNotFoundException {
         String searchKey= JwtRequestFilter.CURRENT_USER;
-        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobile(searchKey,searchKey,searchKey)
+        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobileIgnoreCase(searchKey,searchKey,searchKey)
                 .orElseThrow(()->new AppUserNotFoundException("User "+searchKey+" Not Found"));
         buyer=buyerRepository.findBuyerByUsernameOrEmailOrPassword(appUser);
         return buyer!=null?buyer.getId():null;
@@ -112,7 +112,7 @@ public class BuyerServiceImpl implements BuyerService{
 
     @Override
     public Buyer fetchBuyerByUsernameOrEmailOrMobile(String searchKey) throws AppUserNotFoundException {
-        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobile(searchKey,searchKey,searchKey)
+        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobileIgnoreCase(searchKey,searchKey,searchKey)
                 .orElseThrow(()->new AppUserNotFoundException("User "+searchKey+" Not Found"));
         return buyerRepository.findBuyerByUsernameOrEmailOrPassword(appUser);
     }

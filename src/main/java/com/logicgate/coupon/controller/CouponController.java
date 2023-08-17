@@ -26,7 +26,7 @@ public class CouponController {
     private final ModelMapper modelMapper;
 
     @PostMapping("/addCoupon")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<NewCoupon> addCoupon(@RequestBody NewCoupon newCoupon) throws CouponNotFoundException {
         Coupon coupon=modelMapper.map(newCoupon,Coupon.class);
         Coupon post=couponService.addCoupon(coupon);
@@ -52,14 +52,14 @@ public class CouponController {
     }
 
     @GetMapping("/findCouponByCode")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<CouponDto> getCouponByCode(@RequestParam("couponCode") String couponCode) throws CouponNotFoundException {
         Coupon coupon=couponService.fetchCouponByCode(couponCode);
         return new ResponseEntity<>(convertCouponToDto(coupon),OK);
     }
 
     @GetMapping("/findAllCoupons")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<List<CouponDto>> getAllCoupons(@RequestParam("pageNumber") Integer pageNumber){
         return new ResponseEntity<>(couponService.fetchAllCoupons(pageNumber)
                 .stream()
@@ -78,14 +78,14 @@ public class CouponController {
     }
 
     @DeleteMapping("/deleteCoupon")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<?> deleteCouponById(@RequestParam("id") Long id) throws CouponNotFoundException {
         couponService.deleteCoupon(id);
         return ResponseEntity.ok().body("Coupon ID "+id+" has being deleted");
     }
 
     @DeleteMapping("/deleteAllCoupons")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<?> deleteAllCoupon() {
         couponService.deleteAllCoupons();
         return ResponseEntity.ok().body("Coupons has being deleted");

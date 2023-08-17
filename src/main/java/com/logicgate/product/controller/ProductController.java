@@ -140,14 +140,14 @@ public class ProductController {
     public ResponseEntity<?> deleteProductByCode(@RequestParam("productCode") String productCode)
                                                          throws ProductNotFoundException, AppUserNotFoundException {
         productService.deleteProductByCode (productCode);
-        return ResponseEntity.ok().body("Product code "+productCode+" has being deleted");
+        return ResponseEntity.ok().body("Product code "+productCode+" has been deleted");
     }
 
     @DeleteMapping("/deleteProducts")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<?> deleteAllProducts() {
         productService.deleteAllProducts();
-        return ResponseEntity.ok().body("Products has being deleted");
+        return ResponseEntity.ok().body("Products has been deleted");
     }
 
     private ProductDto convertProductToDto(Product product){

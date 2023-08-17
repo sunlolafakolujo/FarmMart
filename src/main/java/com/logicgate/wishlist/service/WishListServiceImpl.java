@@ -10,8 +10,6 @@ import com.logicgate.wishlist.exception.WishListNotFoundException;
 import com.logicgate.wishlist.model.WishList;
 import com.logicgate.wishlist.repository.WishListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,7 +29,7 @@ public class WishListServiceImpl implements WishListService{
     @Override
     public WishList addProductToWishList(WishList wishList) throws AppUserNotFoundException, WishListNotFoundException {
         String searchKey=JwtRequestFilter.CURRENT_USER;
-        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobile(searchKey,searchKey,searchKey)
+        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobileIgnoreCase(searchKey,searchKey,searchKey)
                 .orElseThrow(()->new AppUserNotFoundException("User "+searchKey+" Not Found"));
         Buyer buyer=buyerRepository.findBuyerByUsernameOrEmailOrPassword(appUser);
         List<WishList> buyerWishList=wishListRepository.findWishListByBuyer(buyer);
@@ -46,7 +44,7 @@ public class WishListServiceImpl implements WishListService{
     @Override
     public List<WishList> fetchWishListByBuyer() throws AppUserNotFoundException {
         String searchKey= JwtRequestFilter.CURRENT_USER;
-        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobile(searchKey,searchKey,searchKey)
+        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobileIgnoreCase(searchKey,searchKey,searchKey)
                 .orElseThrow(()->new AppUserNotFoundException("User "+searchKey+" Not Found"));
         Buyer buyer=buyerRepository.findBuyerByUsernameOrEmailOrPassword(appUser);
         return wishListRepository.findWishListByBuyer(buyer);
@@ -65,7 +63,7 @@ public class WishListServiceImpl implements WishListService{
     @Override
     public void deleteAllWishList() throws AppUserNotFoundException {
         String searchKey= JwtRequestFilter.CURRENT_USER;
-        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobile(searchKey,searchKey,searchKey)
+        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobileIgnoreCase(searchKey,searchKey,searchKey)
                 .orElseThrow(()->new AppUserNotFoundException("User "+searchKey+" Not Found"));
         Buyer buyer=buyerRepository.findBuyerByUsernameOrEmailOrPassword(appUser);
         List<WishList> wishLists=wishListRepository.findWishListByBuyer(buyer);

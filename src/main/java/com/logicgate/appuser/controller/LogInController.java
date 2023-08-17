@@ -25,11 +25,6 @@ public class LogInController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
 
-//    @PostMapping({"/logIn"})
-//    public AuthResponse createJwtToken(@RequestBody AuthRequest authRequest) throws Exception {
-//        return appUserDetailService.createJwtToken(authRequest);
-//    }
-
     @PostMapping("/logIn")
     public ResponseEntity<?> signIn(@RequestBody AuthRequest authRequest) throws AppUserNotFoundException {
         final Authentication authentication = authenticationManager.authenticate(

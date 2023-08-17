@@ -43,9 +43,9 @@ public class EmployeeServiceImpl implements EmployeeService{
     private JobDesignationRepository jobDesignationRepository;
 
     @Override
-    public Employee addEmployee(Employee employee) throws UserRoleNotFoundException,
-            EmployeeNotFoundException, AppUserNotFoundException {
-        Optional<AppUser> savedUser=appUserRepository.findUserByUsernameOrEmailOrMobile(employee.getAppUser().getUsername(),
+    public Employee addEmployee(Employee employee) {
+        Optional<AppUser> savedUser=appUserRepository
+                .findUserByUsernameOrEmailOrMobileIgnoreCase(employee.getAppUser().getUsername(),
                 employee.getAppUser().getEmail(),employee.getAppUser().getMobile());
         if (savedUser.isPresent()){
             throw new AppUserNotFoundException("Username or Email or Mobile is already exist");
@@ -56,16 +56,17 @@ public class EmployeeServiceImpl implements EmployeeService{
             throw new AppUserNotFoundException("Password does not match");
         }
         employee.getAppUser().setUserCode("USER".concat(String.valueOf(new Random().nextInt(100000))));
-        UserRole userRole=userRoleRepository.findByUserRoleName("EMPLOYEE")
-                .orElseThrow(()->new UserRoleNotFoundException("Role Not Found"));
-        List<UserRole> userRoles=new ArrayList<>();
-        userRoles.add(userRole);
+//        UserRole userRole=userRoleRepository.findByUserRoleName("EMPLOYEE")
+//                .orElseThrow(()->new UserRoleNotFoundException("Role Not Found"));
+//        List<UserRole> userRoles=new ArrayList<>();
+//        userRoles.add(userRole);
         employee.getAppUser().setIsEnabled(true);
         employee.getAppUser().setUserType(UserType.EMPLOYEE);
         employee.setEmployeeCode("EMP".concat(String.valueOf(new Random().nextInt(100000))));
         employee.getAppUser().setPassword(passwordEncoder.encode(employee.getAppUser().getPassword()));
         employee.setAge(Period.between(employee.getDateOfBirth(), LocalDate.now()).getYears());
-        employee.getAppUser().setUserRoles(userRoles);
+//        employee.getAppUser().setUserRoles(userRoles);
+        employee.setRetirementDate(employee.getDateOfBirth().plusYears(60));
         return employeeRepository.save(employee);
     }
 
@@ -95,7 +96,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     @Override
     public Employee fetchEmployeeByUsernameOrMobileOEmail(String searchKey) throws EmployeeNotFoundException {
-        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobile(searchKey,searchKey,searchKey)
+        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobileIgnoreCase(searchKey,searchKey,searchKey)
                 .orElseThrow(()->new EmployeeNotFoundException("Employee with "+searchKey+" Not Found"));
         return employeeRepository.findByAppUser(appUser);
     }

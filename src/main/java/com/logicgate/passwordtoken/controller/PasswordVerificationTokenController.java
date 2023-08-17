@@ -5,7 +5,7 @@ import com.logicgate.appuser.model.AppUser;
 import com.logicgate.appuser.service.AppUserService;
 import com.logicgate.configuration.security.jwtrequestfilter.JwtRequestFilter;
 import com.logicgate.event.PasswordResetEvent;
-import com.logicgate.passwordtoken.exception.PasswordVerificationTokenNotFoundException;
+import com.logicgate.passwordtoken.exception.PasswordTokenNotFoundException;
 import com.logicgate.passwordtoken.model.PasswordTokenModel;
 import com.logicgate.passwordtoken.service.PasswordVerificationTokenService;
 import lombok.AllArgsConstructor;
@@ -40,7 +40,9 @@ public class PasswordVerificationTokenController {
 
     @PostMapping("/savePassword")
     @PreAuthorize("hasAnyRole('EMPLOYEE','SELLER','BUYER')")
-    public String savePassword(@RequestBody PasswordTokenModel passwordTokenModel, @RequestParam("token") String token) throws AppUserNotFoundException, PasswordVerificationTokenNotFoundException {
+    public String savePassword(@RequestBody PasswordTokenModel passwordTokenModel, @RequestParam("token") String token)
+                                                                                throws AppUserNotFoundException,
+                                                                                        PasswordTokenNotFoundException {
         Optional<AppUser> appUser=passwordVerificationTokenService.findUserByPasswordToken(token);
         if (appUser.isPresent()){
             passwordVerificationTokenService.changeUserPassword(appUser.get(),passwordTokenModel.getNewPassword());
@@ -51,12 +53,12 @@ public class PasswordVerificationTokenController {
     @PostMapping("/changePassword")
     @PreAuthorize("hasAnyRole('EMPLOYEE','SELLER','BUYER')")
     public String changePassword(@RequestBody PasswordTokenModel passwordTokenModel) throws AppUserNotFoundException,
-            PasswordVerificationTokenNotFoundException {
+            PasswordTokenNotFoundException {
         String searchKey= JwtRequestFilter.CURRENT_USER;
         AppUser appUser=appUserService.fetchByUsernameOrEmailOrMobile(searchKey);
 //        AppUser appUser=appUserService.fetchByUsernameOrEmailOrMobile(passwordTokenModel.getUsernameOrMobileOrEmail());
         if (!passwordVerificationTokenService.checkIfOldPasswordExist(appUser, passwordTokenModel.getOldPassword())){
-            throw new PasswordVerificationTokenNotFoundException("Invalid old password");
+            throw new PasswordTokenNotFoundException("Invalid old password");
         }
         passwordVerificationTokenService.changeUserPassword(appUser,passwordTokenModel.getNewPassword());
         return "Password changed successfully";

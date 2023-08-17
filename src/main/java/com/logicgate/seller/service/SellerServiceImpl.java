@@ -36,7 +36,7 @@ public class SellerServiceImpl implements SellerService{
 
     @Override
     public Seller addSeller(Seller seller) throws UserRoleNotFoundException, AppUserNotFoundException, SellerNotFoundException {
-        Optional<AppUser> appUser=appUserRepository.findUserByUsernameOrEmailOrMobile(seller.getAppUser().getUsername(),
+        Optional<AppUser> appUser=appUserRepository.findUserByUsernameOrEmailOrMobileIgnoreCase(seller.getAppUser().getUsername(),
                 seller.getAppUser().getEmail(),seller.getAppUser().getMobile());
         if (appUser.isPresent()){
             throw new AppUserNotFoundException("Username or Email or Mobile already exist");
@@ -78,7 +78,7 @@ public class SellerServiceImpl implements SellerService{
 
     @Override
     public Seller fetchSellerByEmailOrUsernameOrPhone(String searchKey) throws AppUserNotFoundException {
-        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobile(searchKey,searchKey,searchKey)
+        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobileIgnoreCase(searchKey,searchKey,searchKey)
                 .orElseThrow(()->new AppUserNotFoundException("Seller "+searchKey+" Not Found"));
         return sellerRepository.findSellerByUsernameOrEmailOMobile(appUser);
     }

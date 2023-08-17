@@ -39,7 +39,7 @@ public class FarmServiceImpl implements FarmServices{
     public FarmService addService(FarmService farmService) throws AppUserNotFoundException {
         farmService.setServiceCode("SER".concat(String.valueOf(new Random().nextInt(100000))));
         String searchKey=JwtRequestFilter.CURRENT_USER;
-        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobile(searchKey,searchKey,searchKey)
+        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobileIgnoreCase(searchKey,searchKey,searchKey)
                 .orElseThrow(()->new AppUserNotFoundException("User "+searchKey+" Not Found"));
         Seller seller= sellerRepository.findSellerByUsernameOrEmailOMobile(appUser);
         farmService.setSeller(seller);
@@ -98,7 +98,7 @@ public class FarmServiceImpl implements FarmServices{
     @Override
     public void deleteServiceBySeller() throws AppUserNotFoundException {
         String searchKey= JwtRequestFilter.CURRENT_USER;
-        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobile(searchKey,searchKey,searchKey)
+        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobileIgnoreCase(searchKey,searchKey,searchKey)
                 .orElseThrow(()->new AppUserNotFoundException("User "+searchKey+" Not Found"));
         Seller seller=sellerRepository.findSellerByUsernameOrEmailOMobile(appUser);
         List<FarmService> farmServices=farmServiceRepository.findServiceBySeller(seller);
@@ -117,7 +117,7 @@ public class FarmServiceImpl implements FarmServices{
     @Override
     public void deleteServiceByCode(String serviceCode) throws AppUserNotFoundException {
         String searchKey=JwtRequestFilter.CURRENT_USER;
-        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobile(searchKey,searchKey,searchKey)
+        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobileIgnoreCase(searchKey,searchKey,searchKey)
                 .orElseThrow(()->new AppUserNotFoundException("User "+searchKey+" Not Found"));
         Seller seller=sellerRepository.findSellerByUsernameOrEmailOMobile(appUser);
         farmServiceRepository.deleteSellerServiceByCode(serviceCode,seller);

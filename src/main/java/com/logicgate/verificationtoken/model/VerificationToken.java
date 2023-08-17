@@ -2,10 +2,12 @@ package com.logicgate.verificationtoken.model;
 
 
 import com.logicgate.appuser.model.AppUser;
-import com.logicgate.baseaudit.BaseAudit;
+import com.logicgate.baseaudit.BaseObject;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -15,7 +17,7 @@ import java.util.Date;
 @Setter
 @ToString
 @Entity
-public class VerificationToken extends BaseAudit {
+public class VerificationToken extends BaseObject {
     private static final Integer EXPIRATION_TIME=30;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,5 +43,6 @@ public class VerificationToken extends BaseAudit {
         calendar.setTimeInMillis(new Date().getTime());
         calendar.add(Calendar.MINUTE, expirationTime);
         return new Date(calendar.getTime().getTime());
+
     }
 }

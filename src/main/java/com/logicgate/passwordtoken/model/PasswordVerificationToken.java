@@ -2,7 +2,7 @@ package com.logicgate.passwordtoken.model;
 
 
 import com.logicgate.appuser.model.AppUser;
-import com.logicgate.baseaudit.BaseAudit;
+import com.logicgate.baseaudit.BaseObject;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,7 +15,7 @@ import java.util.Date;
 @Setter
 @ToString
 @Entity
-public class PasswordVerificationToken extends BaseAudit {
+public class PasswordVerificationToken extends BaseObject {
     private static final Integer EXPIRATION_TIME=20;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

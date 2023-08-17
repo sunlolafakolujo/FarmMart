@@ -1,0 +1,25 @@
+SYSTEM_ADMINISTRATOR
+SOFTWARE_ENGINEER
+ACCOUNTANT
+HR_OFFICER
+GM_HR
+GM_FINANCE
+GM_IS
+CEO
+COO
+UI_UX_DESIGNER
+MANAGER_IS
+TEAM_LEAD_IS
+BUSINESS_DEVELOPER
+BUYER
+SELLER
+HRIS_ADMINISTRATOR
+
+
+drop user if exists 'farmmart'@'localhost';
+Create user 'farmmart'@'localhost' identified by 'farmmart123';
+grant all privileges on farmmartdb.* to 'farmmart'@'localhost';
+flush privileges;
+
+drop database if exists farmmartdb;
+create database farmmartdb;

@@ -7,6 +7,7 @@ import com.logicgate.staticdata.OrderStatus;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -17,8 +18,8 @@ import java.util.List;
 @ToString
 public class NewOrder {
     private String orderCode;
-    private LocalDate orderDate;
-    private LocalDate deliveryDate;
+    private LocalDateTime orderDate;
+    private LocalDateTime deliveryDate;
     private OrderStatus orderStatus;
     private Buyer buyer;
     private List<ShoppingCart> shoppingCarts;

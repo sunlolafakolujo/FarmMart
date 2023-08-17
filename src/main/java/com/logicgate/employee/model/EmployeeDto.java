@@ -22,6 +22,7 @@ public class EmployeeDto {
     private String lastName;
     private String otherNames;
     private LocalDate dateOfBirth;
+    private LocalDate retirementDate;
     private Integer age;
     private Gender gender;
     private MaritalStatus maritalStatus;

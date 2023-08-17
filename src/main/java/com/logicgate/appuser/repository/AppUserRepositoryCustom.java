@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface AppUserRepositoryCustom {
     @Query("FROM AppUser a WHERE a.username=?1 OR a.email=?1 OR a.mobile=?1")
-    Optional<AppUser> findUserByUsernameOrEmailOrMobile(String username, String email, String mobile);
+    Optional<AppUser> findUserByUsernameOrEmailOrMobileIgnoreCase(String username, String email, String mobile);
 
     @Query("FROM AppUser a WHERE a.userType=?1")
     List<AppUser> findByUserType(UserType userType);

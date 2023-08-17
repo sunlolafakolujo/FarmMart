@@ -2,6 +2,7 @@ package com.logicgate.category.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.logicgate.baseaudit.BaseObject;
 import com.logicgate.farmservices.model.FarmService;
 import com.logicgate.product.model.Product;
 import lombok.*;
@@ -16,7 +17,7 @@ import java.util.List;
 @Setter
 @ToString
 @Entity
-public class Category {
+public class Category extends BaseObject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

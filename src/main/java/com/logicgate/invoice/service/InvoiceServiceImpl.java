@@ -55,7 +55,7 @@ public class InvoiceServiceImpl implements InvoiceService{
     @Override//check the return
     public List<Invoice> fetchInvoiceByBuyer(String searchKey, Integer pageNumber) throws AppUserNotFoundException {
         Pageable pageable= PageRequest.of(pageNumber,10);
-        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobile(searchKey,searchKey,searchKey)
+        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobileIgnoreCase(searchKey,searchKey,searchKey)
                 .orElseThrow(()->new AppUserNotFoundException("User "+searchKey+" Not Found"));
         Buyer buyer=buyerRepository.findBuyerByUsernameOrEmailOrPassword(appUser);
         List<Order> orders=orderRepository.findOrderByBuyer(buyer);

@@ -8,6 +8,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -22,8 +23,8 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String orderCode;
-    private LocalDate orderDate;
-    private LocalDate deliveryDate;
+    private LocalDateTime orderDate;
+    private LocalDateTime deliveryDate;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
@@ -34,7 +35,8 @@ public class Order {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ShoppingCart> shoppingCarts;
 
-    public Order(String orderCode, LocalDate orderDate, LocalDate deliveryDate, Buyer buyer,OrderStatus orderStatus, List<ShoppingCart> shoppingCarts) {
+    public Order(String orderCode, LocalDateTime orderDate, LocalDateTime deliveryDate,
+                 Buyer buyer,OrderStatus orderStatus, List<ShoppingCart> shoppingCarts) {
         this.orderCode = orderCode;
         this.orderDate = orderDate;
         this.deliveryDate = deliveryDate;

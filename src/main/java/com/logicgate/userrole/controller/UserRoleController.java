@@ -34,21 +34,21 @@ public class UserRoleController {
     }
 
     @GetMapping("/findRoleById")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('SYSTEM_ADMINISTRATOR')")
     public ResponseEntity<UserRoleDto> getRoleById(@RequestParam("id") Long id) throws UserRoleNotFoundException {
         UserRole userRole=userRoleService.fetchRoleById(id);
         return new ResponseEntity<>(convertUserRoleToDto(userRole), HttpStatus.OK);
     }
 
     @GetMapping("/findRoleByName")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('SYSTEM_ADMINISTRATOR')")
     public ResponseEntity<UserRoleDto> getRoleByName(@RequestParam("roleName") String roleName) throws UserRoleNotFoundException {
         UserRole userRole=userRoleService.fetchRoleByName(roleName);
         return new ResponseEntity<>(convertUserRoleToDto(userRole),HttpStatus.OK);
     }
 
     @GetMapping("/findAllRoles")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('SYSTEM_ADMINISTRATOR')")
     public ResponseEntity<List<UserRoleDto>> getAllRoles(@RequestParam(defaultValue = "0") Integer pageNumber){
         return new ResponseEntity<>(userRoleService.fetchAllRoles(pageNumber)
                 .stream()
@@ -57,7 +57,7 @@ public class UserRoleController {
     }
 
     @PutMapping("/updateRole")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('SYSTEM_ADMINISTRATOR')")
     public ResponseEntity<UpdateUserRole> editRole(@RequestBody UpdateUserRole updateUserRole,
                                                    @RequestParam("id") Long id) throws UserRoleNotFoundException {
         UserRole userRole=modelMapper.map(updateUserRole,UserRole.class);
@@ -67,14 +67,14 @@ public class UserRoleController {
     }
 
     @DeleteMapping("/deleteRole")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('SYSTEM_ADMINISTRATOR')")
     public ResponseEntity<?> deleteRoleById(@RequestParam("id") Long id) throws UserRoleNotFoundException {
         userRoleService.deleteRoleById(id);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/deleteAllRoles")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('SYSTEM_ADMINISTRATOR')")
     public ResponseEntity<?> deleteAllRoles(){
         userRoleService.deleteAllRoles();
         return ResponseEntity.noContent().build();

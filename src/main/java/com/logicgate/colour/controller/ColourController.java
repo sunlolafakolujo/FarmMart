@@ -31,7 +31,7 @@ public class ColourController {
     private ModelMapper modelMapper;
 
     @PostMapping("/addColour")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<NewColour> addColour(@RequestBody NewColour newColour) throws ColourNotFoundException {
         Colour colour=modelMapper.map(newColour,Colour.class);
         Colour post=colourService.addColour(colour);
@@ -40,21 +40,21 @@ public class ColourController {
     }
 
     @GetMapping("/findColourById")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<ColourDto> getColourById(@RequestParam("id") Long id) throws ColourNotFoundException {
         Colour colour=colourService.fetchColourById(id);
         return new ResponseEntity<>(convertColourToDto(colour),OK);
     }
 
     @GetMapping("/findColourByName")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<ColourDto> getColourByName(@RequestParam("searchKey") String searchKey) throws ColourNotFoundException {
         Colour colour=colourService.fetchColourByNameOrCode(searchKey);
         return new ResponseEntity<>(convertColourToDto(colour),OK);
     }
 
     @GetMapping("/findAllColours")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<List<ColourDto>> getAllColours(@RequestParam("pageNumber")Integer pageNumber){
         return new ResponseEntity<>(colourService.fetchAllColours(pageNumber)
                 .stream()
@@ -63,7 +63,7 @@ public class ColourController {
     }
 
     @PutMapping("/updateColour")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<UpdateColour> editColour(@RequestBody UpdateColour updateColour,
                                                    @RequestParam("id")Long id) throws ColourNotFoundException {
         Colour colour=modelMapper.map(updateColour,Colour.class);
@@ -73,14 +73,14 @@ public class ColourController {
     }
 
     @DeleteMapping("/deleteColour")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<?> deleteColourById(@RequestParam("id")Long id) throws ColourNotFoundException {
         colourService.deleteColour(id);
         return ResponseEntity.ok().body("Colour ID "+id+" IS Deleted");
     }
 
     @DeleteMapping("/deleteAllColour")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<?> deleteAllColours(){
         colourService.deleteAllColours();
         return ResponseEntity.ok().body("Colours are Deleted");

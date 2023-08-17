@@ -1,6 +1,6 @@
 package com.logicgate.wishlist.model;
 
-import com.logicgate.baseaudit.BaseAudit;
+import com.logicgate.baseaudit.BaseObject;
 import com.logicgate.buyer.model.Buyer;
 import com.logicgate.product.model.Product;
 import lombok.*;
@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Entity
-public class WishList extends BaseAudit {
+public class WishList extends BaseObject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

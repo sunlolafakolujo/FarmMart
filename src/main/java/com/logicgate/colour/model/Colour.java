@@ -2,7 +2,7 @@ package com.logicgate.colour.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.logicgate.baseaudit.BaseAudit;
+import com.logicgate.baseaudit.BaseObject;
 import com.logicgate.product.model.Product;
 import lombok.*;
 
@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @ToString
 @Entity
-public class Colour extends BaseAudit {
+public class Colour extends BaseObject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

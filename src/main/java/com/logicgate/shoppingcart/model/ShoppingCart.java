@@ -1,13 +1,12 @@
 package com.logicgate.shoppingcart.model;
 
 
-import com.logicgate.baseaudit.BaseAudit;
+import com.logicgate.baseaudit.BaseObject;
 import com.logicgate.buyer.model.Buyer;
 import com.logicgate.product.model.Product;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 @AllArgsConstructor
@@ -16,7 +15,7 @@ import java.math.BigDecimal;
 @Setter
 @ToString
 @Entity
-public class ShoppingCart extends BaseAudit {
+public class ShoppingCart extends BaseObject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

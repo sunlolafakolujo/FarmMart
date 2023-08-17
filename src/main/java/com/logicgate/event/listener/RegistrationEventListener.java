@@ -40,7 +40,9 @@ public class RegistrationEventListener implements ApplicationListener<Registrati
         String from="fakolujos@gmail.com";
         String subject="Verify Registration";
         String link=event.getApplicationUrl()+"/api/farmmart/verifyRegistration?token="+token;
-        String body="Dear "+appUser.getUsername()+",\n\n"+"Click on the link to verify your registration "+link;
+        String body="Dear "+appUser.getUsername()+",\n\n"+"Thanks for registering an account with Farm Mart!\n" +
+                "Before you get started, we'll need you to verify your email "+link +
+                "\n\nIgnore this email if you did not signup for registration.\n Regards,\n Team FarmMart";
 
         SimpleMailMessage simpleMailMessage=new SimpleMailMessage();
         simpleMailMessage.setFrom(from);

@@ -17,15 +17,13 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class BaseAudit implements Serializable {
+public class BaseObject implements Serializable {
     @JsonIgnore
-    @ToString.Exclude
     @Temporal(TemporalType.DATE)
     @CreationTimestamp
     private Date createdDate;
 
     @JsonIgnore
-    @ToString.Exclude
     @Temporal(TemporalType.DATE)
     @UpdateTimestamp
     private Date modifiedDate;

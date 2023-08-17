@@ -2,7 +2,7 @@ package com.logicgate.buyer.model;
 
 
 import com.logicgate.appuser.model.AppUser;
-import com.logicgate.baseaudit.BaseAudit;
+import com.logicgate.baseaudit.BaseObject;
 import com.logicgate.staticdata.Gender;
 import lombok.*;
 
@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Setter
 @ToString
 @Entity
-public class Buyer extends BaseAudit {
+public class Buyer extends BaseObject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

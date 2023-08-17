@@ -103,7 +103,7 @@ public class OrderController {
     }
 
     @GetMapping("/findOrders")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<List<OrderDto>> getAllOrders(@RequestParam("pageNumber")Integer pageNumber){
         return new ResponseEntity<>(orderService.fetchAllOrders(pageNumber)
                 .stream()
@@ -115,7 +115,7 @@ public class OrderController {
     @PreAuthorize("hasRole('BUYER')")
     public ResponseEntity<?> cancelOrder() throws AppUserNotFoundException {
         orderService.cancelOrder();
-        return ResponseEntity.ok().body("Your Order has being cancelled");
+        return ResponseEntity.ok().body("Your Order has been cancelled");
     }
 
 

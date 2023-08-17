@@ -28,7 +28,7 @@ public class CategoryController {
     private final ModelMapper modelMapper;
 
     @PostMapping("/addCategory")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<NewCategory> addCategory(@RequestBody NewCategory newCategory) throws CategoryNotFoundException {
         Category category=modelMapper.map(newCategory,Category.class);
         Category post=categoryService.addCategory(category);
@@ -37,14 +37,14 @@ public class CategoryController {
     }
 
     @GetMapping("/findCategoryById")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<CategoryDto> getCategoryById(@RequestParam("id") long id) throws CategoryNotFoundException {
         Category category= categoryService.fetchCategoryById(id);
         return new ResponseEntity<>(convertCategoryToDto(category),OK);
     }
 
     @GetMapping("/findCategoryByCodeOrName")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<CategoryDto> getCategoryByCodeOrName(@RequestParam("searchKey") String searchKey)
                                                                                 throws CategoryNotFoundException {
         Category category= categoryService.fetchCategoryByCodeOrName(searchKey);
@@ -52,7 +52,7 @@ public class CategoryController {
     }
 
     @GetMapping("/findAllCategories")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<List<CategoryDto>> getAllCategories(@RequestParam("pageNumber") Integer pageNumber){
         return new ResponseEntity<>(categoryService.fetchAllCategory(pageNumber)
                 .stream()
@@ -61,7 +61,7 @@ public class CategoryController {
     }
 
     @PutMapping("/updateCategory")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<UpdateCategory> editCategory(@RequestBody UpdateCategory updateCategory,
                                                        @RequestParam("id") Long id) throws CategoryNotFoundException {
         Category category=modelMapper.map(updateCategory,Category.class);
@@ -71,17 +71,17 @@ public class CategoryController {
     }
 
     @DeleteMapping("/deleteCategory")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<?> deleteCategoryById(@RequestParam("id") Long id) throws CategoryNotFoundException {
         categoryService.deleteCategory(id);
         return ResponseEntity.ok().body("Category "+id+" Is Deleted");
     }
 
     @DeleteMapping("/deleteAllCategories")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<?> deleteAllCategory(){
         categoryService.deleteAllCategory();
-        return ResponseEntity.ok().body("Categories has being Deleted");
+        return ResponseEntity.ok().body("Categories has been Deleted");
     }
 
     private CategoryDto convertCategoryToDto(Category category) {

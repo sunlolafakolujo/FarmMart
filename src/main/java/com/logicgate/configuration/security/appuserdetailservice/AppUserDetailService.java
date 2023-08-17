@@ -3,14 +3,9 @@ package com.logicgate.configuration.security.appuserdetailservice;
 
 import com.logicgate.appuser.model.AppUser;
 import com.logicgate.appuser.repository.AppUserRepository;
-import com.logicgate.configuration.security.auth.AuthRequest;
-import com.logicgate.configuration.security.auth.AuthResponse;
 import com.logicgate.configuration.security.jwtutil.JwtUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -42,7 +37,7 @@ public class AppUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String searchKey) {
-        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobile(searchKey,
+        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobileIgnoreCase(searchKey,
                         searchKey,searchKey)
                 .orElseThrow(()->new UsernameNotFoundException(searchKey +" Not Found"));
 

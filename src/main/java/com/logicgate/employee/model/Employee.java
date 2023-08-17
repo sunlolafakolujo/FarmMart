@@ -34,6 +34,7 @@ public class Employee {
 
     @Column(nullable = false)
     private LocalDate dateOfBirth;
+    private LocalDate retirementDate;
     private Integer age;
 
     @Enumerated(EnumType.STRING)

@@ -3,7 +3,7 @@ package com.logicgate.appuser.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.logicgate.verificationtoken.model.VerificationToken;
-import com.logicgate.baseaudit.BaseAudit;
+import com.logicgate.baseaudit.BaseObject;
 import com.logicgate.buyer.model.Buyer;
 import com.logicgate.contact.model.Contact;
 import com.logicgate.employee.model.Employee;
@@ -22,7 +22,7 @@ import java.util.*;
 @Setter
 @ToString
 @Entity
-public class AppUser extends BaseAudit {
+public class AppUser extends BaseObject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

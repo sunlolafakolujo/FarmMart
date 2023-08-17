@@ -26,7 +26,7 @@ public class JobDesignationController {
     private final ModelMapper modelMapper;
 
     @PostMapping("/addJobDesignation")
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('HR_OFFICER')")
     public ResponseEntity<NewJobDesignation> addJobDesignation(@RequestBody NewJobDesignation newJobDesignation)
                                                                             throws JobDesignationNotFoundException {
         JobDesignation jobDesignation=modelMapper.map(newJobDesignation, JobDesignation.class);
@@ -36,14 +36,14 @@ public class JobDesignationController {
     }
 
     @GetMapping("/findJobDesignationById")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('HR_OFFICER')")
     public ResponseEntity<JobDesignationDto> getJobDesignationById(@RequestParam("id") Long id) throws JobDesignationNotFoundException {
         JobDesignation jobDesignation=jobDesignationService.fetchById(id);
         return new ResponseEntity<>(convertJobDesignationToDto(jobDesignation),HttpStatus.OK);
     }
 
     @GetMapping("/findJobDesignationByCodeOrTitle")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('HR_OFFICER')")
     public ResponseEntity<JobDesignationDto> getJobDesignationByCodeOrTitle(@RequestParam("searchKey") String searchKey)
                                                                             throws JobDesignationNotFoundException {
         JobDesignation jobDesignation= jobDesignationService.fetchByJobDesignationCodeOrJobTitle(searchKey);
@@ -51,7 +51,7 @@ public class JobDesignationController {
     }
 
     @GetMapping("/findAllJobDesignations")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('HR_OFFICER')")
     public ResponseEntity<List<JobDesignationDto>> getAllJobDesignation(@RequestParam("pageNumber") Integer pageNumber){
         return new ResponseEntity<>(jobDesignationService.fetchAllJobDesignation(pageNumber)
                 .stream()
@@ -60,7 +60,7 @@ public class JobDesignationController {
     }
 
     @PutMapping("/updateJobDesignation")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('HR_OFFICER')")
     public ResponseEntity<UpdateJobDesignation> editJobDesignation(@RequestBody UpdateJobDesignation updateJobDesignation,
                                                                    @RequestParam("id") Long id)
                                                                    throws JobDesignationNotFoundException {
@@ -71,17 +71,17 @@ public class JobDesignationController {
     }
 
     @DeleteMapping("/deleteJobDesignation")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('HR_OFFICER')")
     public ResponseEntity<?> deleteJobDesignation(@RequestParam("id") Long id) throws JobDesignationNotFoundException {
         jobDesignationService.deleteJobDesignation(id);
         return ResponseEntity.ok().body("Job designation ID "+id+" is deleted");
     }
 
     @DeleteMapping("/deleteAllDesignations")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('HR_OFFICER')")
     public ResponseEntity<?> deleteAllJobDesignations(){
         jobDesignationService.deleteAllJobDesignation();
-        return ResponseEntity.ok().body("All Job designations delete");
+        return ResponseEntity.ok().body("All Job designations deleted");
     }
 
     JobDesignationDto convertJobDesignationToDto(JobDesignation jobDesignation){

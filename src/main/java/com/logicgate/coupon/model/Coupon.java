@@ -2,7 +2,7 @@ package com.logicgate.coupon.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.logicgate.baseaudit.BaseAudit;
+import com.logicgate.baseaudit.BaseObject;
 import com.logicgate.product.model.Product;
 import lombok.*;
 
@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Entity
-public class Coupon extends BaseAudit {
+public class Coupon extends BaseObject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

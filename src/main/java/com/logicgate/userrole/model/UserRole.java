@@ -1,13 +1,11 @@
 package com.logicgate.userrole.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.logicgate.appuser.model.AppUser;
-import com.logicgate.baseaudit.BaseAudit;
+import com.logicgate.baseaudit.BaseObject;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,7 +13,7 @@ import java.util.Set;
 @Setter
 @ToString
 @Entity
-public class UserRole extends BaseAudit {
+public class UserRole extends BaseObject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -42,14 +42,14 @@ public class ShoppingCartController {
     }
 
     @GetMapping("/findCart")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<ShoppingCartDto> getCartById(@RequestParam("id") Long id) throws ShoppingCartNotFoundException {
         ShoppingCart shoppingCart=shoppingCartService.fetchCartById(id);
         return new ResponseEntity<>(convertShoppingCartToDto(shoppingCart),OK);
     }
 
     @GetMapping("/findCartByCode")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<ShoppingCartDto> getCartByCode(@RequestParam("code") String shoppingCartCode) throws ShoppingCartNotFoundException {
         ShoppingCart shoppingCart=shoppingCartService.fetchCartByCode(shoppingCartCode);
         return new ResponseEntity<>(convertShoppingCartToDto(shoppingCart),OK);
@@ -65,7 +65,7 @@ public class ShoppingCartController {
     }
 
     @GetMapping("/findAllShoppingCarts")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<List<ShoppingCartDto>> getAllShoppingCart(@RequestParam("pageNumber") Integer pageNumber){
         return new ResponseEntity<>(shoppingCartService.fetchAllShoppingCart(pageNumber)
                 .stream()
@@ -98,7 +98,7 @@ public class ShoppingCartController {
     }
 
     @DeleteMapping("/deleteAllCarts")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<?> deleteAllCarts(){
         shoppingCartService.deleteAllShoppingCarts();
         return ResponseEntity.ok().body("Carts has being deleted");

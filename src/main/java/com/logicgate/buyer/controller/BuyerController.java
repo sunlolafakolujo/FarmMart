@@ -47,21 +47,21 @@ public class BuyerController {
     }
 
     @GetMapping("/findBuyerById")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<BuyerDto> getBuyerById(@RequestParam("id") Long id) throws BuyerNotFoundException {
         Buyer buyer=buyerService.fetchBuyerById(id);
         return new ResponseEntity<>(convertBuyerToDto(buyer),OK);
     }
 
     @GetMapping("/findBuyerByCode")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<BuyerDto> getBuyerByCode(@RequestParam("code") String buyerCode) throws BuyerNotFoundException {
         Buyer buyer=buyerService.fetchBuyerByCode(buyerCode);
         return new ResponseEntity<>(convertBuyerToDto(buyer),OK);
     }
 
     @GetMapping("/findBuyerByGender")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<List<BuyerDto>> getBuyerByGender(@RequestParam("gender") Gender gender,
                                                            @RequestParam("pageNumber") Integer pageNumber){
         return new ResponseEntity<>(buyerService.fetchBuyerByGender(gender,pageNumber)
@@ -71,7 +71,7 @@ public class BuyerController {
     }
 
     @GetMapping("/findBuyerWithinAgeRange")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<List<BuyerDto>> getBuyerWithinAgeRange(@RequestParam("minAge") Integer minAge,
                                                            @RequestParam("maxAge") Integer maxAge,
                                                            @RequestParam("pageNumber") Integer pageNumber){
@@ -82,7 +82,7 @@ public class BuyerController {
     }
 
     @GetMapping("/findBuyerWithinAgeLimit")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<List<BuyerDto>> getBuyerWithinAgeLimit(@RequestParam("age") Integer age,
                                                                  @RequestParam("pageNumber") Integer pageNumber){
         return new ResponseEntity<>(buyerService.fetchBuyerWithinAgeLimit(age,pageNumber)
@@ -92,7 +92,7 @@ public class BuyerController {
     }
 
     @GetMapping("/findBuyerByEmailOrMobileOrUsername")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<BuyerDto> getBuyerByEmailUserOrMobile(@RequestParam("searchKey") String searchKey)
                                                                         throws AppUserNotFoundException {
         Buyer buyer=buyerService.fetchBuyerByUsernameOrEmailOrMobile(searchKey);
@@ -100,7 +100,7 @@ public class BuyerController {
     }
 
     @GetMapping("/findAllBuyersOrByFirstLastOrOtherName")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<List<BuyerDto>> getAllBuyersOrByFirstOrLastOrOtherName(@RequestParam("pageNumber") Integer pageNumber,
                                                                                  @RequestParam("searchKey")String searchKey){
         return new ResponseEntity<>(buyerService.fetchAllBuyerOrByFirstOrLastOrOtherName(searchKey,pageNumber)
@@ -120,14 +120,14 @@ public class BuyerController {
     }
 
     @DeleteMapping("/deleteBuyer")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<?> deleteBuyerById(@RequestParam("id") Long id) throws BuyerNotFoundException {
         buyerService.deleteBuyer(id);
         return ResponseEntity.ok().body("Buyer with ID "+id+" Is Deleted");
     }
 
     @DeleteMapping("/deleteAllBuyers")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<?> deleteAllBuyers(){
         buyerService.deleteAllBuyer();
         return ResponseEntity.ok().body("Buyers are deleted");

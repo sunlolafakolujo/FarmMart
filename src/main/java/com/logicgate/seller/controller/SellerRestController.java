@@ -59,14 +59,14 @@ public class SellerRestController {
     }
 
     @GetMapping("/findSellerById")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<SellerDto> getSellerById(@RequestParam("id") Long id) throws SellerNotFoundException {
         Seller seller=sellerService.fetchSellerById(id);
         return new ResponseEntity<>(convertSellerToDto(seller), OK);
     }
 
     @GetMapping("/findSellerByCodeOrNameOrCompanyRepTaxOrCacNumber")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<SellerDto> getSellByCodeOrNameOrCompRepOrTaxOrCacNumber(@RequestParam("searchKey") String searchKey)
                                                                                   throws SellerNotFoundException {
         Seller seller= sellerService.fetchSellerByCodeOrNameOrCompanyRepOrTaxIdOrRcNumber(searchKey);
@@ -74,7 +74,7 @@ public class SellerRestController {
     }
 
     @GetMapping("/findAllSellerOrByBusinessEntityType")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<List<SellerDto>> getAllSellerOrByBusinessEntityType(@RequestParam("pageNumber") Integer pageNumber,
                                                                               @RequestParam("businessEntityType") BusinessEntityType businessEntityType){
         return new ResponseEntity<>(sellerService.fetchAllSellerOrByBusinessEntityType(businessEntityType,pageNumber)
@@ -84,14 +84,14 @@ public class SellerRestController {
     }
 
     @GetMapping("/findSellerByEmailOrPhoneOrUsername")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<SellerDto> getSellerByUsernameOrEmailOrPhone(@RequestParam("searchKey") String searchKey) throws AppUserNotFoundException {
         Seller seller=sellerService.fetchSellerByEmailOrUsernameOrPhone(searchKey);
         return new ResponseEntity<>(convertSellerToDto(seller),OK);
     }
 
     @PutMapping("/updateSeller")
-    @PreAuthorize("hasRole('SELLER')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<UpdateSeller> editSeller(@RequestBody UpdateSeller updateSeller,
                                                    @RequestParam("id") Long id) throws SellerNotFoundException {
         Seller seller=modelMapper.map(updateSeller,Seller.class);
@@ -101,14 +101,14 @@ public class SellerRestController {
     }
 
     @DeleteMapping("/deleteSeller")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<?> deleteSellerById(@RequestParam("id") Long id) throws SellerNotFoundException {
         sellerService.deleteSeller(id);
         return ResponseEntity.ok().body("Seller ID "+id+" Is Deleted");
     }
 
     @DeleteMapping("/deleteAllSellers")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('BUSINESS_DEVELOPER')")
     public ResponseEntity<?> deleteAllSellers(){
         sellerService.deleteAllSellers();
         return ResponseEntity.ok().body("All Sellers has being deleted");

@@ -56,7 +56,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
     public List<ShoppingCart> fetchBuyerShoppingCart() throws AppUserNotFoundException {
 //        Pageable pageable= PageRequest.of(pageNumber,10);
         String searchKey= JwtRequestFilter.CURRENT_USER;
-        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobile(searchKey,searchKey,searchKey)
+        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobileIgnoreCase(searchKey,searchKey,searchKey)
                 .orElseThrow(()-> new AppUserNotFoundException("User "+searchKey+" Not Found"));
         Buyer buyer=buyerRepository.findBuyerByUsernameOrEmailOrPassword(appUser);
         return shoppingCartRepository.findShoppingCartByBuyer(buyer);
@@ -81,7 +81,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
     @Override
     public BigDecimal getShoppingCartAmount(List<ShoppingCart> shoppingCarts) throws AppUserNotFoundException, ShoppingCartNotFoundException {
         String searchKey=JwtRequestFilter.CURRENT_USER;
-        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobile(searchKey,searchKey,searchKey)
+        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobileIgnoreCase(searchKey,searchKey,searchKey)
                 .orElseThrow(()->new AppUserNotFoundException("User "+searchKey+" Not Found"));
         Buyer buyer=buyerRepository.findBuyerByUsernameOrEmailOrPassword(appUser);
         BigDecimal cartAmount=BigDecimal.ZERO;
@@ -122,7 +122,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
     public void deleteCartByBuyer() throws AppUserNotFoundException {
 //        Pageable pageable=PageRequest.of(pageNumber,10);
         String searchKey=JwtRequestFilter.CURRENT_USER;
-        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobile(searchKey,searchKey,searchKey)
+        AppUser appUser=appUserRepository.findUserByUsernameOrEmailOrMobileIgnoreCase(searchKey,searchKey,searchKey)
                 .orElseThrow(()-> new AppUserNotFoundException("User "+searchKey+" Not Found"));
         Buyer buyer=buyerRepository.findBuyerByUsernameOrEmailOrPassword(appUser);
         List<ShoppingCart> shoppingCarts=shoppingCartRepository.findShoppingCartByBuyer(buyer);
