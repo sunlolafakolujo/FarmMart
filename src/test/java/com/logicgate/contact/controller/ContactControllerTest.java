@@ -1,10 +1,12 @@
 package com.logicgate.contact.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.logicgate.AbstractContainerBaseTest;
 import com.logicgate.contact.exception.ContactNotFoundException;
 import com.logicgate.contact.model.Contact;
 import com.logicgate.contact.service.ContactService;
 import lombok.extern.slf4j.Slf4j;
+import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -28,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Sql(scripts = {"classpath:db/insert.sql"})
 @Slf4j
 @AutoConfigureMockMvc
-class ContactControllerTest {
+class ContactControllerTest extends AbstractContainerBaseTest {
     @Autowired
     private ContactService contactService;
     @Autowired
@@ -36,14 +41,17 @@ class ContactControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
     Contact contact;
+    Contact contact1;
+    List<Contact> contacts = new ArrayList<>();
 
     @BeforeEach
     void setUp() {
-        contact=new Contact();
+
     }
 
     @Test
     void testThatYouWhenYouCallAddContactMethod_thenContactIsAdded() throws Exception {
+        contact=new Contact();
         contact.setHouseNumber("11");
         contact.setStreetName("Kasabubu Street, Igando");
         contact.setCity("Ojo");
@@ -81,7 +89,7 @@ class ContactControllerTest {
                 .header(HttpHeaders.AUTHORIZATION,"Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYW5pZWxPRmFrb2x1am8iLCJyb2xlcyI6IlJPTEVfQURNSU4sUk9MRV9FTVBMT1lFRSIsImlzcyI6IkxvZ2ljR2F0ZSIsImlhdCI6MTY3NDA0NzY5NSwiZXhwIjoxNzEwMDQ3Njk1fQ.j8OOmZ1vrtSuLWhtuBZ0JN4qw8toN5iWl8-SJVLmqNM"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.*",hasSize(10)))
+                .andExpect(jsonPath("$.size()",hasSize(10)))
                 .andExpect(jsonPath("$[3].streetName",is("Molete Road, Ibadan")))
                 .andReturn();
     }

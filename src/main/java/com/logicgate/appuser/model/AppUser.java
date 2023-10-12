@@ -43,16 +43,16 @@ public class AppUser extends BaseObject {
     @Column(unique = true)
     private String mobile;
 
-    private Boolean isEnabled=false;
+    private Boolean isEnabled = false;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Contact contact;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "app_user_roles",
-    joinColumns = @JoinColumn(name = "app_user_id", referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(name = "user_role_id", referencedColumnName = "id"))
-    private List<UserRole> userRoles=new ArrayList<>();
+            joinColumns = @JoinColumn(name = "app_user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "user_role_id", referencedColumnName = "id"))
+    private List<UserRole> userRoles = new ArrayList<>();
 
     @JsonIgnore
     @ToString.Exclude

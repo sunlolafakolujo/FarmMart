@@ -38,6 +38,7 @@ public class AppUserServiceImpl implements AppUserService{
         if (user.isPresent()){
             throw new AppUserNotFoundException("User already exist");
         }
+
         appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
         return appUserRepository.save(appUser);
     }
